@@ -19,6 +19,8 @@
 !*.cs
 !*.csproj
 
+!*.ipynb
+
 ## Texto
 !*.md
 !*.txt

@@ -90,7 +90,7 @@
 
 
 \begin{textblock}{160}(4,4)
-\LARGE \textcolor{black!85}{\fontsize{22}{0}\selectfont \textbf{Modelos gráficos e inferencia}}
+\LARGE \textcolor{black!85}{\fontsize{22}{0}\selectfont \textbf{Evaluación de modelo}}
 \end{textblock}
 % \begin{textblock}{160}(4,12)
 % \LARGE \textcolor{black!85}{\fontsize{22}{0}\selectfont \textbf{algoritmos de inferencia}}
@@ -116,34 +116,34 @@
 \centering
 \LARGE Verdad
 \end{textblock}
-\vspace{1.5cm} \large
+\vspace{1.3cm} \large
 
 \centering
 
  La ciencia tiene pretensión de verdad, de alcanzar\\
 
-\textbf{acuerdos intersubjetivos con validez universal}
+\textbf{acuerdos intersubjetivos que valgan para todas las personas}
 
 \vspace{0.7cm}
 
 \pause
 
  \large Ciencias formales  \\
- \large  Sistemas axiomáticos sin incertidumbre\\
+ \large  Sistemas axiomáticos \textbf{cerrados} sin incertidumbre\\
 
  \vspace{0.3cm}
 
   \pause
 
  \large Ciencias con datos  \\
-\large Sistemas abiertos con incertidumbre
+\large Sistemas naturales \textbf{abiertos} con incertidumbre
 
 \pause
 \vspace{0.6cm}
 
 \Large
 
-¿Cuál es la verdad en \\ contextos de incertidumbre?
+¿Qué es una verdad en \\ contextos de incertidumbre?
 %
 % \pause
 % \vspace{0.2cm}
@@ -157,45 +157,53 @@
 \begin{frame}[plain]
 \begin{textblock}{160}(00,04)
 \centering
-\LARGE ¿Todo vale lo mismo?\\
+\only<1>{\LARGE ¿Todo vale lo mismo?}\only<2>{\Large Ouch!.. Me estás pisando el cuello!}\only<3>{\Large Bueno, es un punto de vista. Se podría decir que me querés hacer tropezar.}\only<4>{\Large En la posmodernidad ya no hay objetividad, toda historia es igualmente válida}\only<5->{\Large \ Pero me sigues pisando el cuello!\hfill Nunca fuiste a la universidad \ } \\
 \end{textblock}
 \vspace{1cm} \large
 
 
-\only<2->{
-\begin{textblock}{50}(3,26) \centering
-\includegraphics[width=1\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_1}
+\only<2>{
+\begin{textblock}{160}(0,14) \centering
+\includegraphics[width=0.45\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_1}
 \end{textblock}}
- \only<3->{
-\begin{textblock}{50}(55,26) \centering
-\includegraphics[width=1\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_2}
+ \only<3>{
+\begin{textblock}{160}(0,14) \centering
+\includegraphics[width=0.45\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_2}
 \end{textblock}}
-% \only<4>{
-% \begin{textblock}{50}(107,20) \centering
-% \includegraphics[width=1\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_3}
-% \end{textblock}}
-\only<4->{
-\begin{textblock}{50}(107,26) \centering
-\includegraphics[width=1\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_4}
+\only<4>{
+\begin{textblock}{160}(0,14) \centering
+\includegraphics[width=0.45\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_3}
+\end{textblock}}
+\only<5>{
+\begin{textblock}{160}(0,14) \centering
+\includegraphics[width=0.45\textwidth, page={6}]{../../auxiliar/static/sidewalk_bubblegum_1997_4}
 \end{textblock}}
 
 \end{frame}
 
 \begin{frame}[plain]
+\only<2->{
 \begin{textblock}{160}(0,4) \centering
-\LARGE Sabemos no mentir \\
+\Large Al menos sabemos cómo no mentir
 \end{textblock}
+}
+\only<1>{
+\begin{textblock}{160}(0,34) \centering
+\LARGE ¿Puede haber una verdad si justamente \\ tenemos incertidumbre sobre su verdadero valor?
+\end{textblock}
+}
 \vspace{2cm}
 
-
+\pause
+\pause
 
 \Large
 
 \centering
 
-$\bullet$ No afirmar más de lo que sabemos \pause
+$\bullet$ No afirmar más de lo que se conoce \pause
 
-$\bullet$ Sin dejar de decir todo lo que sí sabemos
+$\bullet$ Sin ocultar aquello que sí se conoce
 
 \pause \centering \vspace{1cm}
 
@@ -209,7 +217,7 @@ $\bullet$ Sin dejar de decir todo lo que sí sabemos
 
 \begin{frame}[plain]
  \begin{textblock}{160}(0,4)
- \centering \LARGE \only<3-5>{Distribución de creencias \\}
+ \centering \LARGE \only<2>{Certeza absoluta}\only<3>{Distribución de creencias \\ }\only<4-5>{Distribución de creencias \\ \Large Honesta }
  \only<6->{¿Cómo preservamos los acuerdos intersubjetivos?\\}
 \end{textblock}
 \vspace{1.5cm}
@@ -294,10 +302,10 @@ $\bullet$ Sin dejar de decir todo lo que sí sabemos
 }
 
 \only<5>{
-\begin{textblock}{140}(10,64)   \centering \Large
-Acuerdo intersubjetivo\\[0.1cm]
-\large 1. Máximizamos incertidumbre  \\
-\large 2. Dada la información disponible
+\begin{textblock}{150}(10,64)   \centering \Large
+Acuerdo intersubjetivo (no mentir)\\[0.1cm]
+\large 1. \textbf{Maximizar incertidumbre} (dividiendo en partes iguales) \\
+\large 2. \textbf{Dada la información disponible} (no asignamos creencia por fuera de las cajas)
 
 \end{textblock}
 }
@@ -630,7 +638,7 @@ intersubjetiva inicial
 \centering \LARGE Las reglas de la probabilidad
 \end{textblock}
 \onslide<1>{
-\vspace{1.5cm}
+\vspace{1cm}
 
 
 
@@ -638,35 +646,14 @@ intersubjetiva inicial
 \begin{column}{0.5\textwidth}
  \centering
 
- {\large Principio de integridad}
-
- \vspace{0.4cm}
-
-\textbf{Regla de la suma}
-
-
-\begin{equation*}
- P(r) = \sum_j P(r,s_j)
-\end{equation*}
-
-
-
- \small
- No perdemos ni creamos creencia cuando \\
-la distribuimos. Si sumamos, la recuperamos.
-
- \end{column}
- \begin{column}{0.5\textwidth}
 
 \centering
- {\large Principio de coherencia}
+ \textbf{\large Principio de coherencia}
 
- \vspace{0.4cm}
-
-\textbf{Regla del producto}
+(regla del producto)
 
 \begin{equation*}
- P(r|s)  = \frac{P(r,s)}{P(s)}
+ P(\text{Hipótesis}|\text{Dato})  = \frac{P(\text{Hipótesis},\text{Dato})}{P(\text{Dato})}
 \end{equation*}
 
 \vspace{0.1cm}
@@ -675,27 +662,46 @@ la distribuimos. Si sumamos, la recuperamos.
 Preservamos la creencia previa que \\
 sigue siendo compatible con el dato
 
+
+ \end{column}
+ \begin{column}{0.5\textwidth}
+ \centering
+
+ \textbf{\large Principio de integridad}
+
+(regla de la suma)
+
+\begin{equation*}
+ P(\text{Dato}) = \sum_{\text{\tiny Hipótesis}} P(\text{Hipótesis},\text{Dato})
+\end{equation*}
+
+\vspace{0.15cm}
+
+ \small
+Predecimos con la contribución de todas las \\
+hipótesis. No perdemos ni creamos creencia.
+
 \end{column}
 \end{columns}
 }
 \end{frame}
 }
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Regla del producto
-\end{textblock}
-
-\begin{textblock}{180}(-10,28)
- \begin{align*}
- \phantom{\frac{P(\text{R})}{P\text{R})}P(\text{Regalo} = i)}P(\,\overbrace{\,\text{Regalo} = i\,}^{\text{\small Hipótesis}_i}\,|\,\overbrace{\,\text{Pista} = 2\,}^{\text{\small Dato}}\,) & = \frac{P(\text{Regalo} = i, \text{Pista} = 2)}{P(\text{Pista} = 2)} \phantom{-----------} \\[0.4cm]
- \only<2-3>{\phantom{\frac{P(\text{R})}{P\text{R})}}P(\,\,\text{Pista} = 2\,\,|\,\,\text{Regalo} = i\,\,) & = }  \only<3>{\frac{P(\text{Regalo} = i, \text{Pista} = 2)}{P(\text{Regalo} = i)}\phantom{\frac{P(\text{R})}{P\text{R})}}}
- \only<4>{\phantom{\frac{P(\text{R})}{P\text{R})}}P(\text{Regalo} = i)P(\,\,\text{Pista} = 2\,\,|\,\,\text{Regalo} = i\,\,) & =   {P(\text{Regalo} = i, \text{Pista} = 2)}\phantom{\frac{P(\text{R})}{P\text{R})}} }
- \only<5>{\phantom{\frac{P(\text{R})}{P\text{R})}}P(\text{Regalo} = i)P(\,\,\text{Pista} = 2\,\,|\,\,\text{Regalo} = i\,\,) & =   \bm{P(\text{Regalo} = i, \text{Pista} = 2)}\phantom{\frac{P(\text{R})}{P\text{R})}} }
- \end{align*}
-\end{textblock}
-
-\end{frame}
+%
+% \begin{frame}[plain]
+% \begin{textblock}{160}(0,4)
+% \centering \LARGE Regla del producto
+% \end{textblock}
+%
+% \begin{textblock}{180}(-10,28)
+%  \begin{align*}
+%  \phantom{\frac{P(\text{R})}{P\text{R})}P(\text{Regalo} = i)}P(\,\overbrace{\,\text{Regalo} = i\,}^{\text{\small Hipótesis}_i}\,|\,\overbrace{\,\text{Pista} = 2\,}^{\text{\small Dato}}\,) & = \frac{P(\text{Regalo} = i, \text{Pista} = 2)}{P(\text{Pista} = 2)} \phantom{-----------} \\[0.4cm]
+%  \only<2-3>{\phantom{\frac{P(\text{R})}{P\text{R})}}P(\,\,\text{Pista} = 2\,\,|\,\,\text{Regalo} = i\,\,) & = }  \only<3>{\frac{P(\text{Regalo} = i, \text{Pista} = 2)}{P(\text{Regalo} = i)}\phantom{\frac{P(\text{R})}{P\text{R})}}}
+%  \only<4>{\phantom{\frac{P(\text{R})}{P\text{R})}}P(\text{Regalo} = i)P(\,\,\text{Pista} = 2\,\,|\,\,\text{Regalo} = i\,\,) & =   {P(\text{Regalo} = i, \text{Pista} = 2)}\phantom{\frac{P(\text{R})}{P\text{R})}} }
+%  \only<5>{\phantom{\frac{P(\text{R})}{P\text{R})}}P(\text{Regalo} = i)P(\,\,\text{Pista} = 2\,\,|\,\,\text{Regalo} = i\,\,) & =   \bm{P(\text{Regalo} = i, \text{Pista} = 2)}\phantom{\frac{P(\text{R})}{P\text{R})}} }
+%  \end{align*}
+% \end{textblock}
+%
+% \end{frame}
 
 
 \begin{frame}[plain]
@@ -705,27 +711,27 @@ sigue siendo compatible con el dato
 \end{textblock}
 
 \only<1>{
-\begin{textblock}{180}(-10,28)
- \begin{align*}
- \phantom{\frac{P(\text{R})}{P\text{R})}-\ \ \ }P(\,\overbrace{\,\text{Regalo} = i\,}^{\text{\small Hipótesis}_i}\,|\,\overbrace{\,\text{Pista} = 2\,}^{\text{\small Dato}}\,) & = \frac{P(\text{Pista} = 2)P(\,\,\text{Pista} = 2\,\,|\,\,\text{Regalo} = i\,\,)}{P(\text{Pista} = 2)} \\[0.4cm]
- \end{align*}
+\begin{textblock}{160}(0,26)
+\begin{equation*}
+\overbrace{P(\text{Hip\'otesis}_i,\,\text{Datos})}^{\text{\small Creencia que sobrevive}} = \overbrace{P(\text{Datos}\,|\,\text{Hip\'otesis}_i)}^{\text{\small Predicción (verosimilitud) }} \overbrace{P(\text{Hip\'otesis}_i)}^{\text{\small Creencia previa}}
+\end{equation*}
 \end{textblock}
 }
 
 \only<2>{
-\begin{textblock}{160}(0,33)
-\begin{equation*}
-P(\text{Hip\'otesis}_i |\,\text{Dato}) = \frac{P(\text{Dato}\,|\,\text{Hip\'otesis}_i) \, P(\text{Hip\'otesis}_i)}{P(\text{Dato})}
-\end{equation*}
+\begin{textblock}{130}(30,23)
+\begin{flalign*}
+& \underbrace{P(\text{Hip\'otesis}_i|\,\text{Datos})}_{\text{\small Posterior}} = \frac{\overbrace{P(\text{Hip\'otesis}_i,\, \text{Datos})}^{\text{\small Creencia que sobrevive}} }{\underbrace{P(\text{Datos})}_{\text{\small Evidencia}}} &&
+\end{flalign*}
 \end{textblock}
 }
 
 
 \only<3>{
-\begin{textblock}{160}(0,26.62)
-\begin{equation*}
-\underbrace{P(\text{Hip\'otesis}_i|\,\text{Dato})}_{\text{\small Posterior}} = \frac{\overbrace{P(\text{Dato}\,|\,\text{Hip\'otesis}_i)}^{\text{\small Verosimilitud}} \overbrace{P(\text{Hip\'otesis}_i)}^{\text{\small Prior}} }{\underbrace{P(\text{Dato})}_{\text{\small Evidencia}}}
-\end{equation*}
+\begin{textblock}{130}(30,23)
+\begin{flalign*}
+& \underbrace{P(\text{Hip\'otesis}_i|\,\text{Datos})}_{\text{\small Posterior}} = \frac{\overbrace{P(\text{Dato}\,|\,\text{Hip\'otesis}_i)}^{\text{\small Verosimilitud}} \overbrace{P(\text{Hip\'otesis}_i)}^{\text{\small Prior}} }{\underbrace{P(\text{Dato})}_{\text{\small Evidencia}}} &&
+\end{flalign*}
 \end{textblock}
 }
 
@@ -736,7 +742,7 @@ P(\text{Hip\'otesis}_i |\,\text{Dato}) = \frac{P(\text{Dato}\,|\,\text{Hip\'otes
 \Wider[2cm]{
 \begin{textblock}{160}(0,23)
 \begin{equation*}
-\underbrace{P(\text{Hip\'otesis}_i|\,\text{Dato, Modelo})}_{\text{\small Posterior}} = \frac{\overbrace{P(\text{Dato}\,|\,\text{Hip\'otesis$_i$, Modelo})}^{\text{\small Verosimilitud}} \overbrace{P(\text{Hip\'otesis}_i|\text{ Modelo})}^{\text{\small Prior}} }{\underbrace{P(\text{Dato }|\text{ Modelo})}_{\text{\small Evidencia}}}
+\underbrace{P(\text{Hip\'otesis}_i|\,\text{Datos, Modelo})}_{\text{\small Posterior}} = \frac{\overbrace{P(\text{Datos}\,|\,\text{Hip\'otesis$_i$, Modelo})}^{\text{\small Verosimilitud}} \overbrace{P(\text{Hip\'otesis}_i|\text{ Modelo})}^{\text{\small Prior}} }{\underbrace{P(\text{Datos }|\text{ Modelo})}_{\text{\small Evidencia}}}
 \end{equation*}
 \end{textblock}
 }
@@ -753,27 +759,24 @@ P(\text{Hip\'otesis}_i |\,\text{Dato}) = \frac{P(\text{Dato}\,|\,\text{Hip\'otes
 }
 
 
-\only<5-9>{
-\begin{textblock}{140}(10,62)
+\only<5-7>{
+\begin{textblock}{140}(10,58)
 \begin{flalign*}
-\only<5>{P(\underbrace{\text{Dato}\,|\,\text{Modelo}}_{\text{\small Evidencia}}) = \ ? }
-\only<6>{P(\underbrace{\text{Dato}\,|\,\text{Modelo}}_{\text{\small Evidencia}}) = \ \text{\Large \ Regla de la suma} }
-\only<7-8>{P(\text{Dato}\,|\,\text{Modelo}) = }
-\only<9->{P(\underbrace{\text{Dato}\,|\,\text{Modelo}}_{\hfrac{\text{\small Con \textbf{todas}}}{\text{\small las hipótesis}} } ) = }
-\only<7>{\sum_{\text{Hipótesis}_i} P(\underbrace{\text{Dato},\,\text{Hip\'otesis$_i$}}_{\hfrac{\text{\small Creencia}}
+\only<5>{\overbrace{P(\text{Datos}\,|\,\text{Modelo})}^{\text{\small Evidencia}} = \ ? }
+\only<6>{\overbrace{P(\text{Datos}\,|\,\text{Modelo})}^{\text{\small Evidencia}} = \ \text{\Large \ Regla de la suma} }
+\only<7>{\overbrace{P(\text{Datos}\,|\,\text{Modelo} )}^{\text{\small Evidencia}} = }
+\only<7>{\sum_{\text{Hipótesis}_i} P(\underbrace{\text{Hip\'otesis$_i$},\,\text{Dato}}_{\hfrac{\text{\small Creencia}}
 {\text{\small conjunta}}} \, | \, \text{Modelo})}
-\only<8>{\sum_{\text{Hipótesis}_i} P(\underbrace{\text{Dato}\,|\,\text{Hip\'otesis$_i$, Modelo}}_{\text{\small Verosimilitud}}) P(\underbrace{\text{Hip\'otesis}_i|\text{ Modelo}}_{\text{\small prior}}) }
-\only<9>{\sum_{\text{Hipótesis}_i} P(\underbrace{\text{Dato}\,|\,\text{Hip\'otesis$_i$, Modelo}}_{\hfrac{\text{\small Predicción con \textbf{una}}}{\text{\small única hipótesis}}}) P(\text{Hip\'otesis}_i|\text{ Modelo}) }
 &&
 \end{flalign*}
 \end{textblock}
 }
 
 
-\only<10->{
+\only<8->{
 \begin{textblock}{160}(0,60)
 \begin{equation*}
- P(\text{Modelo}_j|\text{Datos}) = \onslide<11>{\frac{\overbrace{P(\text{Datos}|\text{Modelo}_j)}^{\text{\small Evidencia}} P(\text{Modelo}_j)}{ P(\text{Datos})}}
+ P(\text{Modelo}_j|\text{Datos}) = \onslide<9>{\frac{\overbrace{P(\text{Datos}|\text{Modelo}_j)}^{\text{\small Evidencia}} P(\text{Modelo}_j)}{ P(\text{Datos})}}
 \end{equation*}
 \end{textblock}
 }

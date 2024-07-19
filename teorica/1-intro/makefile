@@ -1,6 +1,9 @@
 pdf:
 	pdflatex 1-intro.tex
 
+fig:
+	make -C makefile
+
 full: 
 	make -C ../../auxiliar
 	make -C figuras

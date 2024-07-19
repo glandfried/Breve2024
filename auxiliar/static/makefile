@@ -45,6 +45,7 @@ inti.png:
 sidewalk_bubblegum_1997_4.png:
 	wget https://raw.githubusercontent.com/BayesDeLasProvinciasUnidasDelSur/static/master/sidewalk_bubblegum_1997_1.png
 	wget https://raw.githubusercontent.com/BayesDeLasProvinciasUnidasDelSur/static/master/sidewalk_bubblegum_1997_2.png
+	wget https://raw.githubusercontent.com/BayesDeLasProvinciasUnidasDelSur/static/master/sidewalk_bubblegum_1997_3.png
 	wget https://raw.githubusercontent.com/BayesDeLasProvinciasUnidasDelSur/static/master/sidewalk_bubblegum_1997_4.png
 
 moneda-euro-liviana.png:
