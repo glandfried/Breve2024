@@ -27,6 +27,17 @@ ps_rcM1=[[[  0, 1/2, 1/2],  # r=1, c=1
 # P(m) = pModelo[m]
 pModelo = [1/2, 1/2]
 
+# 1.1.2 Simulación de Datos
+
+T = 16 # Cantidad total de episodios
+Datos = []
+for t in range(T):
+    r = np.random.choice(3, p=pr)
+    c = np.random.choice(3, p=pc)
+    s = np.random.choice(3, p=ps_rcM1[c][r])
+    Datos.append((c,s,r))
+
+
 # Predicciones de los modelos
 pDatos_M0 = [1] # Del modelo 0: No Monty Hall
 pDatos_M1 = [1] # Del modelo 1: Monty Hall
