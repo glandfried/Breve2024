@@ -38,6 +38,7 @@ for t in range(T):
     Datos.append((c,s,r))
 
 
+
 # Predicciones de los modelos
 pDatos_M0 = [1] # Del modelo 0: No Monty Hall
 pDatos_M1 = [1] # Del modelo 1: Monty Hall

@@ -2,7 +2,7 @@ import subprocess
 import json
 import sys
 
-list_of_notebooks = ["00/notebook_00_herramientas.ipynb"]
+list_of_notebooks = ["00/notebook_00_herramientas.ipynb", "01/notebook_01_ejercicios.ipynb"]
 
 for name_notebook in list_of_notebooks:
     # Comando para limpiar el notebook
