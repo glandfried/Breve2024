@@ -1619,16 +1619,16 @@ $P(\text{Modelo}_i|\text{Datos})$
 
 \begin{frame}[plain]
 \begin{textblock}{160}(0,4)
-\centering \LARGE El problema histórico \\
-\large Costo computacional
+\centering \LARGE El costo computacional \\
+\large Problema histórico de la probabilidad
 \end{textblock}
 
-\only<2->{
-\begin{textblock}{160}(0,28) \centering
-\Large La aplicación estricta de las reglas de la probabilidad \\[0.1cm]
 
-\large
-\textbf{obligan a evaluar todo el espacio de hipótesis}.
+\only<2->{
+\begin{textblock}{160}(0,22) \centering
+\Large La \textbf{aplicación estricta} de las reglas de la probabilidad \\
+
+obligan a \textbf{evaluar todo el espacio de hipótesis}.
 
 \end{textblock}
 }
@@ -1638,665 +1638,65 @@ $P(\text{Modelo}_i|\text{Datos})$
 
 \only<4->{$\bullet$ Siglo 19: Física estadística}
 
-\only<5->{$\bullet$ Siglo 20: Frecuentismo}
+\only<5->{$\bullet$ Siglo 20: Estimadores puntuales (evitan evaluar todo el espacio)}
 
-\only<6->{$\bullet$ Siglo 21: Comienza a ser posible aplicar las reglas de la probabilidad de forma estricta en todos los campos de la ciencia}
+\only<6->{$\bullet$ Siglo 21: Aproximación de la inferencia exactas (de todo el espacio)}
 \end{textblock}
 
 \end{frame}
 
 
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Siglo 18: la primera solución.
-\end{textblock}
-
-
-\only<1>{
-\begin{textblock}{140}(20,26)
-¿A quién le compro? \\[0.3cm]
-
-\ \ \ $\bullet$ 100\% Me gusta de 10 Ratings \\[0.1cm]
-
-\ \ \ $\bullet$ 96\% Me gusta de 50 Ratings \\[0.1cm]
-
-\ \ \ $\bullet$ 93\% Me gusta de 200 Ratings \\[0.1cm]
-\end{textblock}
-}
-
-
-\only<2->{
-\begin{textblock}{150}(5,21)
-\centering
-\scalebox{1.2}{
-\tikz{
-    \normalsize
-    \node[latent] (p) {$p$} ;
-    \node[const,left=of p] (np) {\small Probabilidad} ;
-
-    \onslide<2>{
-      \node[latent, fill=black!20,below=of p, xshift=-1cm] (m1) {$m_1$} ;
-      \node[const, below=of p, yshift=-1.3cm] (m2) {$\dots$} ;
-      \node[latent, below=of p,fill=black!20, xshift=1cm] (m3) {$m_n$} ;
-      \edge {p} {m1,m3};
-      \node[const,left=of m1] (nm) {\small Me gusta} ;
-    }
-    \onslide<3-5>{
-      \node[latent, fill=black!20,below=of p] (mi) {$m_i$} ;
-      \node[const,left=of mi] (nmi) {\small Me gusta} ;
-      \edge {p} {mi};
-      \plate {monedas} {(mi)(nmi)} {$i \in \{1, \dots, n\}$};
-    }
-    \onslide<4>{
-      \node[const,right=of mi, xshift=0.15cm] (pm) {\small $P(m_i \, | \, p) = p^{m_i} \, (1-p)^{1-m_i}$} ;
-    }
-    \onslide<6->{
-      \node[latent, fill=black!20,below=of p] (k) {$k$} ;
-      \node[latent, fill=black!100, above=of k, xshift=-0.8cm, yshift=-0.8cm, minimum size=2pt] (n) {};
-      \node[const,left=of k] (nk) {\small Cantidad de Me gusta} ;
-      \edge {p,n} {k};
-      \node[const,above=of n] (nn) {\small $n$} ;
-      \edge {p,n} {k};
-      }
-    \onslide<7->{
-      \node[const,right=of mi, xshift=0.15cm] (pm) {\small $P(k \, | \, p, \, n) = \frac{n!}{k!(n-k)!} \,  p^{k} \, (1-p)^{n-k}$} ;
-    }
-    \onslide<8->{
-      \node[const,right=of p, xshift=0.15cm] (pp) {\small $P(p) = 1$} ;
-    }
-}
-}
-\end{textblock}
-}
-
-
-\only<5-6>{
-\begin{textblock}{80}(70,20)
-\centering
-\includegraphics[width=0.8\linewidth]{../../auxiliar/static/galton-board.jpg}
-\end{textblock}
-}
-
-
-\only<9->{
-\begin{textblock}{150}(12,62)
-\begin{flalign*}
-\phantom{\bigg|}P(p\, | \, k, n) = \frac{P(k\,|\,p, n) P(p)}{P(k\,|\,n)}
-\only<10>{= \underbrace{\phantom{\bigg|}(n+1)\phantom{\bigg|}}_{P(k\,|\,n)} \underbrace{\frac{n!}{k!(n-k)!} \,  p^{k} \, (1-p)^{n-k}}_{P(k\,|\,p, n)} \underbrace{\phantom{\bigg|}1\phantom{\bigg|}}_{P(p)} }
-\only<11>{=\frac{(n+1)!}{k!(n-k)!} \,  p^{k} \, (1-p)^{n-k} }
-&&
-\end{flalign*}
-\end{textblock}
-}
-
-\only<12>{
-\begin{textblock}{90}(65,50)
-\centering
-\includegraphics[width=0.85\linewidth]{figuras/betas.pdf}
-\end{textblock}
-}
-
-\end{frame}
-
-% \begin{frame}[plain]
-% \begin{textblock}{160}(0,4)
-% \centering \LARGE Siglo 19: Física estadística \\
-% \large Gases
-% \end{textblock}
-%
-%
-% \only<1->{
-% \begin{textblock}{140}(10,18)
-% \phantom{Gas} \\[0.2cm]
-%
-% \small Micro Estados
-% \end{textblock}
-%
-%
-% \begin{textblock}{140}(10,28)
-% \begin{tikzpicture}[scale=0.50]
-%   % Grid lines
-%   \draw[step=1cm, black!60!white] (0,0) grid (5,4);
-%   % Points
-%   % \foreach \x/\y in {0.5/0.5, 1.5/1.5, 2.5/2.5, 3.5/3.5, 4.5/1.5, 1.5/3.5, 3.5/1.5, 4.5/2.5, 2.5/0.5, 0.5/3.5} {
-%   % \fill[red] (\x, \y) circle (0.1);
-%   \foreach \x/\y/\radius in {0.5/0.5/0.15, 1.5/1.5/0.15, 2.5/2.5/0.15, 3.5/3.5/0.15, 4.5/1.5/0.15, 1.5/3.5/0.15, 3.5/1.5/0.15, 4.5/2.5/0.15, 2.5/0.5/0.15, 0.5/3.5/0.15} {
-%     \fill[black!65] (\x, \y) circle (\radius);
-%   }
-% \end{tikzpicture}
-% \end{textblock}
-%
-% \begin{textblock}{140}(10,54)
-% $\left.
-% \begin{array}{l}
-% N = 10 \\
-% V = 20
-% \end{array}
-% \right\}$ \small Macro estados
-%
-%
-% \only<4->{
-% \begin{flalign*}
-% & \ \ W = \binom{20}{10} = \num{184756} &&
-% \end{flalign*}
-% }
-%
-% \end{textblock}
-% }
-%
-%
-%
-% \only<2->{
-% \begin{textblock}{140}(70,18)
-% \phantom{Gas} \\[0.2cm]
-%
-% \small Expansión de volumen
-% \end{textblock}
-%
-% \begin{textblock}{140}(70,28)
-% \begin{tikzpicture}[scale=0.50]
-%   % Grid lines
-%   \draw[step=1cm, black!60!white] (0,0) grid (10,4);
-%   % Points
-%   \foreach \x/\y/\radius in {4.5/0.5/0.15, 0.5/3.5/0.15, 0.5/0.5/0.15, 8.5/3.5/0.15, 4.5/2.5/0.15, 9.5/0.5/0.15, 3.5/3.5/0.15, 1.5/1.5/0.15, 6.5/2.5/0.15,  7.5/1.5/0.15 } {
-%     \fill[black!65] (\x, \y) circle (\radius);
-%   }
-%   % Bold horizontal line
-%   \draw[line width=1pt] (5,0) -- (5,4);
-% \end{tikzpicture}
-% \end{textblock}
-%
-% \begin{textblock}{140}(70,54)
-% $\begin{array}{l}
-% N = 10 \\
-% V = 40
-% \end{array}$
-% \end{textblock}
-% }
-%
-%
-% \only<5->{
-% \begin{textblock}{140}(94,51)
-% \small
-% \begin{flalign*}
-% & W = \binom{40}{10} = \num{847660528} &&
-% \end{flalign*}
-% \end{textblock}
-% }
-%
-% \only<3>{
-% \begin{textblock}{160}(0,74)
-% \centering
-%
-% ¿Cuál es la probabilidad de que se contraiga nuevamente?
-% \end{textblock}
-% }
-%
-% \only<6>{
-% \begin{textblock}{160}(66,66)
-% \begin{flalign*}
-% & P(\text{contraiga}|N=10,V=40) = \frac{\binom{20}{10}}{\binom{40}{10}} = 0.0002 &&
-% \end{flalign*}
-% \end{textblock}
-% }
-%
-% \end{frame}
-%
-%
-
-
 
 \begin{frame}[plain]
 \begin{textblock}{160}(0,4)
-\centering \LARGE Siglo 19: Física estadística \\
-\large Máxima incertidumbre dadas restricciones
-\end{textblock}
-
-\only<2->{
-\begin{textblock}{130}(10,22)
-Restricciones: \normalsize
-
-\hspace{0.3cm} $\bullet$ Partículas totales $N = 6$
-
-\hspace{0.3cm} $\bullet$ Energía total $E = \sum_i e_i \cdot n_i =  6 $
-
-
-\vspace{0.4cm}
-
-\hspace{-0.7cm}\begin{tikzpicture}[scale=0.45]
-  % Grid lines
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-  % Add character "6" at specified coordinates
-  \foreach \x/\y in {-0.75/0.5} {\node at (\x, \y) {0};}
-  \foreach \x/\y in {-0.75/1.5} {\node at (\x, \y) {1};}
-  \foreach \x/\y in {-0.75/2.5} {\node at (\x, \y) {2};}
-  \foreach \x/\y in {-0.75/3.5} {\node at (\x, \y) {3};}
-  \foreach \x/\y in {-0.75/4.5} {\node at (\x, \y) {4};}
-  \foreach \x/\y in {-0.75/5.5} {\node at (\x, \y) {5};}
-  \foreach \x/\y in {-0.75/6.5} {\node at (\x, \y) {6};}
-  \foreach \x/\y in {-0.75/7.5} {\node at (\x, \y) {$e_i$};}
-  \foreach \x/\y in {0.5/7.5} {\node at (\x, \y) {$n_i$};}
-  \onslide<3->{\foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {$6$};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  }
-  \onslide<8->{\foreach \x/\y in {-1.3/-0.5} {\node at (\x, \y) {\scriptsize Gini:};}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $0$};}}
-\end{tikzpicture}\hspace{-0.035cm}\onslide<4->{\begin{tikzpicture}[scale=0.45]
-  % Grid lines
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-  % Add character "6" at specified coordinates
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {$4$};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $33$};}}
-\end{tikzpicture}}\onslide<5->{\begin{tikzpicture}[scale=0.45]
-  % Grid lines
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-  % Add character "6" at specified coordinates
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$2$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {$2$};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {$2$};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $53$};}}
-\end{tikzpicture}}\onslide<6->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$2$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {$3$};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $60$};}}
-\end{tikzpicture}}\onslide<7->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$3$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {$3$};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $60$};}}
-\end{tikzpicture}}\onslide<7->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$3$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $73$};}}
-\end{tikzpicture}}\onslide<7->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$3$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {$2$};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $80$};}}
-\end{tikzpicture}}\onslide<7->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$4$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {$2$};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $80$};}}
-\end{tikzpicture}}\onslide<7->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$4$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $86$};}}
-\end{tikzpicture}}\onslide<7->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$4$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {$1$};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {$1$};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $93$};}}
-\end{tikzpicture}}\hspace{-0.08cm}\onslide<7->{\begin{tikzpicture}[scale=0.45]
-
-  \draw[step=1cm, black!60!white] (0,0) grid (1,7);
-
-  \foreach \x/\y in {0.5/0.5} {\node at (\x, \y) {$5$};}
-  \foreach \x/\y in {0.5/1.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/2.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/3.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/4.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/5.5} {\node at (\x, \y) {};}
-  \foreach \x/\y in {0.5/6.5} {\node at (\x, \y) {$1$};}
-  \onslide<8->{\phantom{\foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize G};}}
-  \foreach \x/\y in {0.5/-0.5} {\node at (\x, \y) {\scriptsize $100$};}}
-\end{tikzpicture}}
-\end{textblock}
-}
-
-\only<9->{
-\begin{textblock}{80}(80,22)
-\centering \normalsize
-\begin{flalign*}
-& W(n_0, n_1, n_2, n_3, n_4, n_5, n_6)  = \frac{N!}{\prod_i n_i !} \\
-\only<10-13>{& \ \ W(0, 6, 0, 0, 0, 0, 0)  = 1 \\}
-\only<11-13>{& \ \ W(1, 4, 1, 0, 0, 0, 0)  = 30 \\}
-\only<12-13>{& \ \ W(2, 2, 2, 0, 0, 0, 0)  = 90 \\}
-\only<13>{& \ \ \dots \\}
-\only<13>{& \ \ W(5, 0, 0, 0, 0, 0, 1)  = 6 \\}
-&&
-\end{flalign*}
-\end{textblock}
-}
-
-\only<14>{
-\begin{textblock}{78}(79,42)
-\centering
-\includegraphics[width=\textwidth, page=1]{figuras/energia.pdf}
-\end{textblock}
-}
-
-
-\end{frame}
-
-% \begin{frame}[plain]
-% \begin{textblock}{160}(0,4)
-% \centering \LARGE Siglo 19: Física estadística \\
-% \large Entropía
-% \end{textblock}
-%
-% %
-% % \only<3-5>{
-% % \begin{textblock}{140}(8,26)
-% % \begin{tikzpicture}[scale=0.50]
-% % % Draw the surrounding box
-% %   \draw[red!60, thick] (-0.2, -0.4) rectangle (10.9, 4.4);
-% % \end{tikzpicture}
-% % \end{textblock}
-% % }
-% %
-% % \only<-5>{
-% % \begin{textblock}{140}(10,28)
-% % \begin{tikzpicture}[scale=0.50]
-% %   % Grid lines
-% %   \draw[step=1cm, black!60!white] (0,0) grid (5,4);
-% %   % Points
-% %   % \foreach \x/\y in {0.5/0.5, 1.5/1.5, 2.5/2.5, 3.5/3.5, 4.5/1.5, 1.5/3.5, 3.5/1.5, 4.5/2.5, 2.5/0.5, 0.5/3.5} {
-% %   % \fill[red] (\x, \y) circle (0.1);
-% %   \foreach \x/\y/\radius in {0.5/0.5/0.15, 1.5/1.5/0.15, 2.5/2.5/0.15, 3.5/3.5/0.15, 4.5/1.5/0.15, 1.5/3.5/0.15, 3.5/1.5/0.15, 4.5/2.5/0.15, 2.5/0.5/0.15, 0.5/3.5/0.15} {
-% %     \fill[black!65] (\x, \y) circle (\radius);
-% %   }
-% % \end{tikzpicture}
-% % \only<2->{\begin{tikzpicture}[scale=0.50]
-% %   % Grid lines
-% %   \draw[step=1cm, black!60!white] (0,0) grid (5,4);
-% %   % Points
-% %   % \foreach \x/\y in {0.5/0.5, 1.5/1.5, 2.5/2.5, 3.5/3.5, 4.5/1.5, 1.5/3.5, 3.5/1.5, 4.5/2.5, 2.5/0.5, 0.5/3.5} {
-% %   % \fill[red] (\x, \y) circle (0.1);
-% %   \foreach \x/\y/\radius in {1.5/0.5/0.15, 0.5/1.5/0.15, 3.5/2.5/0.15, 3.5/3.5/0.15, 4.5/1.5/0.15, 1.5/3.5/0.15, 3.5/1.5/0.15, 4.5/0.5/0.15, 2.5/1.5/0.15, 0.5/2.5/0.15} {
-% %     \fill[black!65] (\x, \y) circle (\radius);
-% %   }
-% %
-% % \end{tikzpicture}}
-% % \end{textblock}
-% %
-% % \begin{textblock}{140}(10,54)
-% % $\begin{array}{l}
-% % N_A = 10 \\
-% % V_A = 20
-% % \end{array}
-% % $ \small
-% %
-% % \begin{flalign*}
-% % & \ \ W_A = \binom{20}{10} &&
-% % \end{flalign*}
-% % \end{textblock}
-% % }
-% %
-% % \only<2-5>{
-% % \begin{textblock}{140}(40,54)
-% % $\begin{array}{l}
-% % N_B = 10 \\
-% % V_B = 20
-% % \end{array}
-% % $ \small
-% %
-% % \begin{flalign*}
-% % & \ \ W_B = \binom{20}{10} &&
-% % \end{flalign*}
-% %
-% % \end{textblock}
-% % }
-% %
-% % \only<4-5>{
-% % \begin{textblock}{140}(70,24)
-% % \begin{flalign*}
-% % N_{AB} &= N_A + N_B \\
-% % V_{AB} &= V_A + V_B \\
-% % \only<4>{\phantom}{\log} \, \bm{W_{AB}} &= \bm{W_A} \only<4>{\phantom}{+}  \bm{W_B} \\ &&
-% % \end{flalign*}
-% % \end{textblock}
-% % }
-%
-% \only<1->{
-% \begin{textblock}{140}(16,20)
-% \begin{flalign*}
-% S = \log W = &
-% \only<1>{\log \frac{N!}{\prod_i n_i!}}
-% \only<2->{\log N! - \sum_i \log n_i!}
-% \phantom{\frac{N!}{\prod_i n_i}} \\
-% & \only<6-7>{= N \log N - N - \big(\sum_i n_i \log n_i - n_i\big)}
-% \only<8>{= N \log N - N - \sum_i n_i \log n_i - \sum_i n_i}
-% \only<9->{= N \log N - \cancel{N} - \sum_i n_i \log n_i + \cancel{\sum_i n_i} } \phantom{\cancel{\sum_i n_i} } \\
-% & \only<10->{= (\sum_i n_i) \log N - \sum_i n_i \log n_i  } \\
-% & \only<11>{= \sum_i n_i ( \log N - \log n_i )  }
-% \only<12>{= \sum_i n_i  \log \frac{N}{n_i}   }
-% \only<13->{= - \sum_i n_i  \log \frac{n_i}{N}   } \phantom{\frac{N}{n_i} } \\
-% \only<14>{\frac{S}{N} & = - \sum_i \frac{n_i}{N}  \log \frac{n_i}{N}   }
-% \only<15->{\frac{S}{N} & = - \sum_i p_i  \log p_i   } \only<16>{= \text{Entropía}}
-% \phantom{\frac{N}{n_i} }
-% \\&&
-% \end{flalign*}
-% \end{textblock}
-% }
-%
-%
-% \only<3-6>{
-% \begin{textblock}{140}(10,52)
-% \begin{flalign*}
-% \log N! = \sum_{k=1}^N \log k & \only<4->{\approx \int_1^N \log k \ dk} \\ \only<5->{&= N \log N - N \cancel{+ 1}} &&
-% \end{flalign*}
-% \end{textblock}
-% }
-%
-% \only<4>{
-% \begin{textblock}{70}(80,48)
-% \includegraphics[width=\textwidth, page=1]{figuras/stirling.pdf}
-% \end{textblock}
-% }
-%
-% \only<5-6>{
-% \begin{textblock}{70}(80,48)
-% \includegraphics[width=\textwidth, page=2]{figuras/stirling.pdf}
-% \end{textblock}
-% }
-%
-%
-% \end{frame}
-
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering  \LARGE Modelo lineal
+\centering  \LARGE Modelos lineales \\[-0.1cm]
+ \large en las hipótesis
 \end{textblock}
 
 
-\begin{textblock}{160}(0,18)
+\begin{textblock}{150}(0,22)
 \begin{equation*}
 \begin{split}
-y & = w_0 + w_1 x \\[0.2cm]
-p(t | x, \bm{w}, \beta ) &= \N(t \,|\, y(x, \bm{w}), \beta^2) \\[0.6cm]
+f(\text{dato} = x,\text{hipótesis}= \bm{w})
+&= \sum_{i=0}^{\texttt{len(}\bm{w}\texttt{)}-1} w_i \cdot x^i \\[0.6cm]
+p(y | x, \bm{w}, \beta ) &= \N(y \,|\, f(x,\bm{w}), \beta^2) \\[0.6cm]
 \onslide<2->{
 p(w_i) &= \N(w_i \,|\, 0, \sigma_{i}^2) \\[0cm]}
 \end{split}
 \end{equation*}
 \end{textblock}
 
-\only<3->{
-\begin{textblock}{160}(0,54)
-\begin{figure}[H]
-    \centering
-    \tikz{
-
-    \node[latent, fill=black!100, minimum size=2pt] (x) {} ; %
-    \node[const, right=of x] (c_x) {$x_i$};
-    \node[latent, fill=black!20, yshift=-1.5cm] (t) {$t_i$} ; %
-    \node[latent, fill=black!100, yshift=-1.5cm , xshift=-2cm,minimum size=2pt] (beta)
-    {} ; %
-    \node[const, above=of beta] (c_beta) {$\beta$};
-    \node[latent, fill=black!0, yshift=-1.5cm, xshift=2cm] (w) {$\bm{w}$};
-    \node[latent, fill=black!100, xshift=2cm, minimum size=2pt] (alpha) {} ; %
-    \node[const, right=of alpha] (c_alpha) {$\sigma$};
-
-    \edge {x,beta,w} {t};
-    \edge {alpha} {w};
-
-    \node[invisible, fill=black!0, minimum size=0pt, xshift=0.52cm] (data_inv) {} ; %
-
-    \plate {no} {(x)(t)(data_inv)} {$i: $ Datos}; %
-    }
-\end{figure}
-\end{textblock}
-}
-
 \end{frame}
-
-
-\begin{frame}[plain]
-
-\Wider[-3cm]{
- \begin{figure}
-\begin{subfigure}[t]{0.32\textwidth}
-\onslide<3->{\caption*{Verosimilitud}}
-\end{subfigure}
-\begin{subfigure}[t]{0.32\textwidth}
-\caption*{Priori\onslide<3->{/Posteriori}}
-\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_posterior_0.pdf}
-\end{subfigure}
-\begin{subfigure}[t]{0.32\textwidth}
-\onslide<2->{
-\caption*{Espacio de datos}
-\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_dataSpace_0.pdf}}
-\end{subfigure}
-
-
-\begin{subfigure}[c]{0.32\textwidth}
-\onslide<3->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_likelihood_1.pdf}}
-\end{subfigure}
-\begin{subfigure}[c]{0.32\textwidth}
-\onslide<3->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_posterior_1.pdf}}
-\end{subfigure}
-\begin{subfigure}[c]{0.32\textwidth}
-\onslide<3->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_dataSpace_1.pdf}}
-\end{subfigure}
-
-\begin{subfigure}[c]{0.32\textwidth}
-\onslide<4->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_likelihood_2.pdf}}
-\end{subfigure}
-\begin{subfigure}[c]{0.32\textwidth}
-\onslide<4->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_posterior_2.pdf}}
-\end{subfigure}
-\begin{subfigure}[c]{0.32\textwidth}
-\onslide<4->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_dataSpace_2.pdf}}
-\end{subfigure}
-
-\end{figure}
-}
-\end{frame}
-
 
 
 \begin{frame}[plain]
 \begin{textblock}{160}(0,4)
-\centering \Large Modelos lineales
+\centering \LARGE Modelos lineales
 \end{textblock}
  \vspace{1.25cm}
 
 \only<1->{
-\begin{textblock}{80}(0,18)\centering
+\begin{textblock}{160}(0,16)\centering
 \ \ Función objetivo \\
 
-$\N(y \,| \, \text{sen}(x), \beta^2) \ \ x \in [-\pi,\pi]$ \\[0.2cm]
+$\N(y \,| \, \text{sen}(x), \beta^2) \ \ x \in [-\pi,\pi]$ \\[0cm]
 
-       \includegraphics[width=0.85\textwidth]{figuras/pdf/model_selection_true_and_sample}
+       \includegraphics[width=0.40\textwidth]{figuras/pdf/model_selection_true_and_sample}
 \end{textblock}
 }
 
-\only<2->{
-\begin{textblock}{80}(75,22)
-\begin{align*}
-y &= w_0 + w_1 \, x + w_2 \, x^2 + w_3 \, x^3 \\[1cm]
-\onslide<3->{& y  = \sum_{i=0}^{M-1} w_i \phi_i(x) = \bm{w}^T \bm{\phi}(x) \\[0.1cm]
-\text{¿}&\text{Cuál es el mejor modelo lineal?}
-}
-\end{align*}
+\only<2>{
+\begin{textblock}{160}(0,78) \LARGE \centering
+¿Cuál es el mejor modelo lineal?
 \end{textblock}
 }
 
 \end{frame}
 
 
-
 \begin{frame}[plain]
 \begin{textblock}{160}(0,4)
-\centering \LARGE Siglo 20: Frecuentismo \\
+\centering \LARGE Siglo 20: Estimadores puntuales \\
 \large \sout{Evaluación} Selección de hipótesis
 \end{textblock}
 
@@ -2304,7 +1704,7 @@ y &= w_0 + w_1 \, x + w_2 \, x^2 + w_3 \, x^3 \\[1cm]
 \only<1-10>{
 \begin{textblock}{160}(0,14) \centering
 \begin{equation*}
- \underset{\bm{w}}{\text{ max }} P(\bm{t} | \bm{x}, \bm{w}, \beta) = \underset{\bm{w}}{\text{ min }} \sum_{i=1}^{n}  (t_i - \bm{w}^T\bm{\phi}(\bm{x}_i))^2
+ \underset{\bm{w}}{\text{ max }} P(\bm{y} | \bm{x}, \bm{w}, \beta) = \underset{\bm{w}}{\text{ min }} \sum_{i=1}^{n}  (y_i - f(x_i, \bm{w}) )^2
 \end{equation*}
 \end{textblock}
 }
@@ -2312,7 +1712,7 @@ y &= w_0 + w_1 \, x + w_2 \, x^2 + w_3 \, x^3 \\[1cm]
 
 \only<11>{
 \begin{textblock}{160}(0,20) \centering
-\Large ¿Qué pasa si empezamos a ver datos $x \notin [-\pi,\pi]$?
+\Large Perio si empezamos a ver datos $x \notin [-\pi,\pi]$ este modelo no sirve!
 \end{textblock}
 }
 
@@ -2367,41 +1767,107 @@ P(\text{dato}|\text{Modelo}) & = \only<6->{\phantom}{\sum_{\text{hipótesis}}}  
 \end{frame}
 
 
-
 \begin{frame}[plain]
 
 \centering
 \LARGE
 
-¿La aplicación estricta de la probabilidad  \\
+\vspace{0.5cm}
 
-produce sobreajuste (\textit{overfitting})?
+¿Será que la aplicación estricta de las reglas de la \\
 
+probabilidad produce sobreajuste (\textit{overfitting})?
+
+\pause \vspace{1cm}
+
+¿Y entonces el sistema de razonamiento en \\
+
+contextos de incertidumbre funciona mal?
+
+
+
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering  \LARGE Siglo 21: Inferencia exacta \\
+\large Aplicación estricta de las reglas de la probabilidad
+\end{textblock}
+
+\only<2->{
+\begin{textblock}{140}(10,26)\centering
+\Large El modelo lineal tiene solución analítica! \\
+\end{textblock}
+}
+
+\only<3->{
+\begin{textblock}{140}(10,42)
+\large $\bullet$  Para evaluar las hipótesis al interior de los modelos (\textbf{posterior}),
+\begin{equation*} \Large
+P(\text{Hipótesis}|\text{Datos},\text{Modelo})
+\end{equation*} \\[0.5cm]
+\only<4->{\large $\bullet$ Y para evaluar modelos alternativos (\textbf{evidencia}),
+\begin{equation*} \Large
+P(\text{Modelo}|\text{Datos})
+\end{equation*}}
+\end{textblock}
+}
 
 \end{frame}
 
 
 
 \begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering  \LARGE Siglo 21: Enfoque bayesiano \\
-\large Aplicación estricta de las reglas de la probabilidad
-\end{textblock}
 
-\begin{textblock}{80}(80,22)\Large
+\begin{textblock}{60}(0,14)
 \begin{equation*}
-P(\text{Modelo}|\text{Datos})
-\end{equation*}
+P(\text{Hipótesis}|\text{Datos},\text{Modelo})
+\end{equation*} \\[0.5cm]
 \end{textblock}
 
 
-\begin{textblock}{160}(0,32)
-     \centering
-       \includegraphics[width=0.45\textwidth]{figuras/pdf/model_selection_MAP_non-informative}
-       \includegraphics[width=0.445\textwidth]{figuras/pdf/model_selection_evidence}
-\end{textblock}
+\Wider[-3cm]{
+ \begin{figure}
+\begin{subfigure}[t]{0.32\textwidth}
+\onslide<3->{\caption*{Verosimilitud}}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\caption*{Priori\onslide<3->{/Posteriori}}
+\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_posterior_0.pdf}
+\end{subfigure}
+\begin{subfigure}[t]{0.32\textwidth}
+\onslide<2->{
+\caption*{Espacio de datos}
+\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_dataSpace_0.pdf}}
+\end{subfigure}
 
+
+\begin{subfigure}[c]{0.32\textwidth}
+\onslide<3->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_likelihood_1.pdf}}
+\end{subfigure}
+\begin{subfigure}[c]{0.32\textwidth}
+\onslide<3->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_posterior_1.pdf}}
+\end{subfigure}
+\begin{subfigure}[c]{0.32\textwidth}
+\onslide<3->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_dataSpace_1.pdf}}
+\end{subfigure}
+
+\begin{subfigure}[c]{0.32\textwidth}
+\onslide<4->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_likelihood_2.pdf}}
+\end{subfigure}
+\begin{subfigure}[c]{0.32\textwidth}
+\onslide<4->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_posterior_2.pdf}}
+\end{subfigure}
+\begin{subfigure}[c]{0.32\textwidth}
+\onslide<4->{\includegraphics[width=\textwidth]{figuras/pdf/linearRegression_dataSpace_2.pdf}}
+\end{subfigure}
+
+\end{figure}
+}
 \end{frame}
+
+
 
 
 \begin{frame}[plain]
@@ -2430,6 +1896,30 @@ P(\text{dato}_1|\text{Modelo}) & = \sum_{\text{hipótesis}}  P(\text{dato}_1| \t
 
 
 \end{frame}
+
+
+
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering  \LARGE Siglo 21: Inferencia exacta \\
+\large Aplicación estricta de las reglas de la probabilidad
+\end{textblock}
+
+\begin{textblock}{80}(80,22)\Large
+\begin{equation*}
+P(\text{Modelo}|\text{Datos})
+\end{equation*}
+\end{textblock}
+
+
+\begin{textblock}{160}(0,32)
+     \centering
+       \includegraphics[width=0.45\textwidth]{figuras/pdf/model_selection_MAP_non-informative}
+       \includegraphics[width=0.445\textwidth]{figuras/pdf/model_selection_evidence}
+\end{textblock}
+
+\end{frame}
+
 
 
 \begin{frame}[plain]
@@ -2486,24 +1976,97 @@ P(\text{Datos}) =  \sum_{\text{Modelo}} P(\text{Datos}|\text{Modelo}) P(\text{Mo
 \end{frame}
 
 
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Limitaciones \\
+\large Modelo lineal
+\end{textblock}
+
+
+\begin{textblock}{160}(0,24) \Large \centering
+La transformaciones no-lineales $\Phi(x)$ están fijas.
+\begin{equation*}
+f(x,\bm{w}) = \bm{w}^T \Phi(x)
+\end{equation*}
+\end{textblock}
+
+\only<2->{
+\begin{textblock}{160}(0,56) \Large \centering
+Necesitaríamos infinitos modelos \\
+para poder representar cualquier función!
+\end{textblock}
+}
+
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Procesos Gaussianos \\
+\large Evaluación de infinitos modelos $f(\bm{x})$
+\end{textblock}
+\vspace{1cm}\centering
+
+\begin{equation*}
+\begin{split}
+p(y_i) &= \N(y_i|f(\bm{x}_i), \beta^2) \ \ \ \ \text{ donde } f \text{ es la función objetivo}\\[0.6cm]
+&\text{Prior sobre los modelos:}\\
+ f(\bm{x}) &\sim \mathcal{GP}(m(\bm{x}), k(\bm{x},\bm{x}^{\prime}) )  \\[0.4cm]
+\onslide<2->{& m(\bm{x})  = \mathbb{E}[f(\bm{x})] \\
+& k(\bm{x},\bm{x}^{\prime}) = \mathbb{E}[(f(\bm{x})-m(\bm{x}))(f(\bm{x}^{\prime})-m(\bm{x}^{\prime}))]}
+\end{split}
+\end{equation*}
+
+\Large \vspace{0.6cm}
+
+\onslide<3->{Posterior sobre los modelos tiene solución analítica!}
+
+\end{frame}
+
+
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Procesos Gaussianos \\
+\large Evaluación de infinitos modelos $f(\bm{x})$
+\end{textblock}
+\centering
+\vspace{1.5cm}
+
+\includegraphics[width=0.8\textwidth]{figuras/pdf/gaussianProcess.pdf}
+
+
+\end{frame}
 
 
 
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Procesos Gaussianos \\
+\large y Redes Neuronales
+\end{textblock}
 
-%
-% \begin{frame}[plain]
-% \begin{textblock}{140}(10,28)
-% \Large Ejercicio 1.1 \\[0.4cm]
-%
-% \large La persona que da la pista a veces se confunde y señala la caja donde está el regalo o la caja que fue elegida previamente por la persona. \\[0.2cm]
-%
-% \only<2>{
-% \large Descubrir el verdadero efecto causal que el regalo y la elección tienen sobre la pista en base a los datos ofrecidos en la práctica. \\[0.1cm]}
-%
-% \end{textblock}
-%
-%
-% \end{frame}
+
+\begin{textblock}{140}(10,26)
+\only<2->{
+\Large Se han demostrado las siguientes equivalencia} \large
+
+\vspace{0.6cm}
+
+\only<3->{
+\hspace{0.25cm} $\bullet$ Neal, RM. 1994. \textit{Priors for infinite networks}. Universidad de Toronto.
+
+\normalsize Equivalencia entre una red neuronal de una sola capa totalmente conectada infinitamente ancha y los proceso gaussiano.}
+
+\vspace{0.6cm}
+
+\only<4->{
+\hspace{0.25cm} \large $\bullet$ Lee et al (Google Brain). 2018. \textit{Deep Neural Networks as Gaussian Process.} International Conference on Learning Representations
+
+\hspace{0.5cm} \normalsize Derivan la equivalencia exacta entre redes infinitamente profundas y GPs.}
+\end{textblock}
+
+
+\end{frame}
 
 \begin{frame}[plain,noframenumbering]
 \centering \vspace{0.5cm}
@@ -2512,19 +2075,45 @@ P(\text{Datos}) =  \sum_{\text{Modelo}} P(\text{Datos}|\text{Modelo}) P(\text{Mo
 
 
 
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Regularizadores L2 \\
+\large para estimación puntual\\
+\end{textblock}
+
+\only<2->{
+\begin{textblock}{160}(0,12) \centering
+\begin{equation*}
+ \underset{\bm{w}}{\text{ max }} P(\bm{y} | \bm{x}, \bm{w}, \beta) P(\bm{w}) = \underset{\bm{w}}{\text{ min }} \sum_{i=1}^{n}  (y_i - f(x_i, \bm{w}) )^2 + \sum_{j=0}^{||\bm{w}||-1}  (0 - w_j)^2
+\end{equation*}
+\end{textblock}
+}
+
+\only<3->{
+\begin{textblock}{160}(0,34)
+     \centering
+       \includegraphics[width=0.45\textwidth]{figuras/pdf/regularizador} \hfill
+\end{textblock}
+}
+
+\end{frame}
+
+
+
+
+
 
 
 %
 % \begin{frame}[plain]
 % \begin{textblock}{96}(0,6.5)\centering
-% {\transparent{0.9}\includegraphics[width=0.8\textwidth]{../../auxiliar/static/inti.png}}
+% {\transparent{0.9}\includegraphics[width=0.8\textwidth]{../../../aux/static/inti.png}}
 % \end{textblock}
 %
 % \begin{textblock}{160}(96,5.5)
-% \includegraphics[width=0.35\textwidth]{../../auxiliar/static/pachacuteckoricancha}
+% \includegraphics[width=0.35\textwidth]{../../../aux/static/pachacuteckoricancha}
 % \end{textblock}
 % \end{frame}
-
 
 
 

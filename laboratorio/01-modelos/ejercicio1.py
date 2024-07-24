@@ -89,7 +89,7 @@ N, _ = Alturas.shape
 y = Alturas.altura
 x = pd.DataFrame({"Base": [1 for _ in range(N)],    # Origen
                   "Altura": Alturas.altura_madre,  # Pendiente
-                  "Genero": (Alturas.sexo=="M")+0     # Genero
+                  "Sexo": (Alturas.sexo=="M")+0     # Sexo
              })
 
 model = sm.OLS(Alturas.altura,x).fit()
