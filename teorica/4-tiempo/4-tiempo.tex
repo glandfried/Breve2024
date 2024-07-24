@@ -993,51 +993,6 @@ convergence(h, epsilon = 0.01, iterations = 10)
 \end{frame}
 
 
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Efecto causal temporal \\
-\large \only<5>{El control sintético}
-\end{textblock}
-
-\only<1>{
-\begin{textblock}{155}(0,20) \centering
-\includegraphics[page=1,width=0.7\textwidth]{figuras/ICP}
-\end{textblock}
-}
-\only<2>{
-\begin{textblock}{155}(0,20) \centering
-\includegraphics[page=2,width=0.7\textwidth]{figuras/ICP}
-\end{textblock}
-}
-\only<3>{
-\begin{textblock}{155}(0,20) \centering
-\includegraphics[page=3,width=0.7\textwidth]{figuras/ICP}
-\end{textblock}
-}
-\only<4->{
-\begin{textblock}{155}(0,20) \centering
-\includegraphics[page=4,width=0.7\textwidth]{figuras/ICP}
-\end{textblock}
-}
-
-\only<5>{
-\begin{textblock}{150}(45,28) \Large
-\textbf{Necesitamos modelar \\ el contrafactual}
-% Modelos lineales de series de tiempo \\[0.2cm]
-%
-% \large
-%
-% \ \ \ $\bullet$ El comportamiento de la serie temporal previa a la intervención
-%
-% \ \ \ $\bullet$ El comportamiento de otras series temporales (misma serie en otras regiones)
-%
-% \ \ \ $\bullet$ Información del conocimiento experto
-\end{textblock}
-}
-
-
-\end{frame}
-
 %
 % \begin{frame}[plain]
 % \begin{textblock}{160}(0,4)
@@ -1140,12 +1095,12 @@ convergence(h, epsilon = 0.01, iterations = 10)
       \only<5-6>{\node[const, above=of fw1] (nfw1) {\normalsize$\N(\bm{w}_{t+1}|\bm{w}_t, R )$};}
       \node[const, right=of fy2] (nfy2) {\normalsize $\N(\, y_t \, | \, \bm{w}_t^T \bm{\phi}(x_t), \, \beta^2) $};
     }
-
-    \only<6->{
-      \draw[dashed] (4.1,-1.2) -- (4.1,4.5);
-      \node[const, xshift=2.7cm, yshift=-1cm] (pre) {\normalsize Pre-tratamiento};
-      \node[const, xshift=5.6cm, yshift=-1cm] (pre) {\normalsize Post-tratamiento};
-    }
+%
+%     \only<6->{
+%       \draw[dashed] (4.1,-1.2) -- (4.1,4.5);
+%       \node[const, xshift=2.7cm, yshift=-1cm] (pre) {\normalsize Pre-tratamiento};
+%       \node[const, xshift=5.6cm, yshift=-1cm] (pre) {\normalsize Post-tratamiento};
+%     }
 
     \only<7->{
       \node[latent, above=of fw1] (z1) {$\bm{z}_1$};
@@ -1155,7 +1110,7 @@ convergence(h, epsilon = 0.01, iterations = 10)
       \node[const, above=of fz2] (nfz2) {\normalsize$\N(\bm{z}_{t+1}|\bm{z}_t, Q )$ \ \  };
     }
     \only<8->{
-      \node[const, right=of fw2, yshift=0.6cm] (nfwt) {\normalsize$p(\bm{w}_{t+1}|\bm{w}_t,\bm{z}_t) = \N(\bm{w}_{t+1}|\bm{w}_t \Phi(\bm{z}_t), R )$ \ \  };
+      \node[const, right=of fw2, yshift=0.6cm] (nfwt) {\normalsize$p(\bm{w}_{t+1}|\bm{w}_t,\bm{z}_t) = \N(\bm{w}_{t+1}|\bm{w}_t^T \Phi(\bm{z}_t), R )$ \ \  };
     }
 
 
@@ -1196,157 +1151,96 @@ convergence(h, epsilon = 0.01, iterations = 10)
 
 \begin{frame}[plain]
 \begin{textblock}{160}(0,4)
-\centering \LARGE Modelos lineas para series temporales \\
-\large Tendencia lineal local \only<4->{\texttt{+} controles externos}
+\centering \LARGE Limitaciones \\
+\large Modelo lineal
 \end{textblock}
 
-\only<1->{
-\begin{textblock}{155}(20,20)
-\raggedright
-\tikz{
-    \node[latent, fill=black!20] (y) {$y_0$} ; %
-    \node[factor, above=of y, yshift=-0.4cm] (fy) {} ; %
 
-    \node[latent, left=of fy, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x) {} ;
-
-    \node[const, left=of x] (c_x) {$\only<3->{\bm}{x}_0$};
-
-    \node[latent, above=of fy, yshift=-0.55cm] (w) {$\mu_0$};
-
-    \node[factor, left=of w, xshift=0.4cm] (fw) {};
-    \node[const, above=of fw] (py) {$p(\mu_0)$};
-
-      \node[factor, right=of w] (fw1) {};
-      \node[latent, right=of fw1, xshift=0.15cm] (w1) {$\mu_1$};
-      \node[factor, below=of w1, yshift=0.55cm] (fy1) {};
-      \node[latent, below=of fy1, fill=black!15, yshift=0.4cm] (y1) {$y_1$};
-      \node[latent, left=of fy1, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x1) {} ;
-      \node[const, left=of x1] (nx1) {$\only<3->{\bm}{x}_1$};
-
-      \node[factor, right=of w1] (fw2) {};
-      \node[latent, right=of fw2, xshift=0.15cm] (w2) {$\mu_2$};
-      \node[factor, below=of w2, yshift=0.55cm] (fy2) {};
-      \node[latent, below=of fy2, yshift=0.4cm] (y2) {$y_2$};
-      \node[latent, left=of fy2, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x2) {} ;
-      \node[const, left=of x2] (nx2) {$\only<3->{\bm}{x}_2$};
-
-
-      \draw[dashed] (4.1,-1.2) -- (4.1,4.5);
-
-      \only<-2>{
-        \node[const, xshift=2.7cm, yshift=-1cm] (pre) {\normalsize Pre-tratamiento};
-        \node[const, xshift=5.6cm, yshift=-1cm] (post) {\normalsize Post-tratamiento};
-      }
-
-      \node[latent, above=of fw1] (z1) {$\delta_1$};
-      \node[latent, above=of fw2] (z2) {$\delta_2$};
-      \node[factor, left=of z1] (fz1) {};
-      \node[factor, left=of z2, xshift=-0.15cm] (fz2) {};
-      \node[const, above=of fz2] (nfz2) {\normalsize$\N(\delta_{t+1}|\delta_t, q^2)$ \ \  };
-
-      \node[const, right=of fw2, yshift=0.6cm] (nfwt) {\normalsize$p(\mu_{t+1}|\mu_t,\delta_t) = \N(\mu_{t+1}|\mu_t + \delta_t, r^2 )$ \ \  };
-
-      \only<2->{
-        \node[const, right=of z2] (nz2) {\normalsize El cambio};
-        \node[const, right=of w2] (nw2) {\normalsize Lo establecido};
-      }
-
-      \only<3>{
-        \node[const, xshift=4cm, yshift=-1.7cm] (pregunta) {\Large ¿Y la relación con otras series temporales?};
-      }
-
-      \only<4->{
-        \node[latent, right=of y, xshift=-0.15cm , yshift=-1.3cm] (W) {$\bm{w}$};
-        \node[factor, left=of W] (fW) {};
-        \node[const, left=of fW] (pW) {\normalsize $p(\bm{w})$};
-        \node[const, below=of W] (static) {\normalsize Regresión estática};
-        \node[const, right=of fy2] (py2) {\normalsize $\N(y_t|\mu_t + \bm{w}^T \bm{\phi}(\bm{x}_t), \, \beta^2 )$};
-      }
-
-
-    \edge {fw} {w};
-    \edge[-] {x,w} {fy};
-    \edge {fy} {y};
-    \edge[-] {w} {fw1};
-    \edge {fw1} {w1};
-    \edge[-] {x1,w1} {fy1};
-    \edge {fy1} {y1};
-    \edge[-] {w1} {fw2};
-    \edge {fw2} {w2};
-    \edge[-] {x2,w2} {fy2};
-    \edge {fy2} {y2};
-    \edge {fz1} {z1};
-    \edge[-] {z1} {fz2};
-    \edge {fz2} {z2};
-    \edge[-] {z1} {fw1};
-    \edge[-] {z2} {fw2};
-    \only<4->{
-      \edge[-] {W} {fy,fy1,fy2};
-      \edge {fW} {W};
-    }
-
-    \node[invisible, above=of w, yshift=2cm] (ia) {};
-    \node[invisible, left=of y, xshift=-1.3cm] (il) {};
-
-    %\plate {no} {(x)(y)(data_inv)(c_x)} {$i: $ Datos\vspace{1cm}}; %
-}
-\end{textblock}
-}
-
-\end{frame}
-
-\begin{frame}[plain, fragile]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Modelos lineas para series temporales \\
-\large Ejemplo. Generación de datos.
-\end{textblock}
-
-\begin{textblock}{140}(10,14)
-\begin{lstlisting}[backgroundcolor=\color{black!10}]
-set.seed(1)
-x <- 100 + arima.sim(model = list(ar = 0.999), n = 100)
-y <- 1.2 * x + rnorm(100)
-y[71:100] <- y[71:100] + 10 # Intervencion
-\end{lstlisting}
+\begin{textblock}{160}(0,24) \Large \centering
+La transformaciones no-lineales $\Phi(x)$ están fijas.
+\begin{equation*}
+f(x,\bm{w}) = \bm{w}^T \Phi(x)
+\end{equation*}
 \end{textblock}
 
 \only<2->{
-\begin{textblock}{140}(10,23)
-\centering
-\includegraphics[width=0.8\textwidth]{figuras/causalTimeSeries.pdf}
+\begin{textblock}{160}(0,56) \Large \centering
+Necesitaríamos infinitos modelos \\
+para poder representar cualquier función!
 \end{textblock}
 }
 
 \end{frame}
 
 
-\begin{frame}[plain, fragile]
+\begin{frame}[plain]
 \begin{textblock}{160}(0,4)
-\centering \LARGE Modelos lineas para series temporales \\
-\large Ejemplo. Inferencia.
+\centering \LARGE Procesos Gaussianos \\
+\large Evaluación de infinitos modelos $f(\bm{x})$
 \end{textblock}
+\vspace{1cm}\centering
 
-\begin{textblock}{120}(20,22)
-\begin{lstlisting}[backgroundcolor=\color{black!10}]
-library("CausalImpact")
-# Google "Inferring causal impact using
-# bayesian structural time-series models"
+\begin{equation*}
+\begin{split}
+p(y_i) &= \N(y_i|f(\bm{x}_i), \beta^2) \ \ \ \ \text{ donde } f \text{ es la función objetivo}\\[0.6cm]
+&\text{Prior sobre los modelos:}\\
+ f(\bm{x}) &\sim \mathcal{GP}(m(\bm{x}), k(\bm{x},\bm{x}^{\prime}) )  \\[0.4cm]
+\onslide<2->{& m(\bm{x})  = \mathbb{E}[f(\bm{x})] \\
+& k(\bm{x},\bm{x}^{\prime}) = \mathbb{E}[(f(\bm{x})-m(\bm{x}))(f(\bm{x}^{\prime})-m(\bm{x}^{\prime}))]}
+\end{split}
+\end{equation*}
 
-data <- cbind(y,  x)
-pre.period <- c(1, 70)
-post.period <- c(71, 100)
-impact <- CausalImpact(data, pre.period, post.period)
-\end{lstlisting}
-\end{textblock}
+\Large \vspace{0.6cm}
 
-\only<2->{
-\begin{textblock}{140}(10,16)
-\centering
-\includegraphics[width=0.9\textwidth]{figuras/causalTimeSeries2.pdf}
-\end{textblock}
-}
+\onslide<3->{Posterior sobre los modelos tiene solución analítica!}
 
 \end{frame}
+
+
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Procesos Gaussianos \\
+\large Evaluación de infinitos modelos $f(\bm{x})$
+\end{textblock}
+\centering
+\vspace{1.5cm}
+
+\includegraphics[width=0.8\textwidth]{figuras/pdf/gaussianProcess.pdf}
+
+
+\end{frame}
+
+
+
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Procesos Gaussianos \\
+\large y Redes Neuronales
+\end{textblock}
+
+
+\begin{textblock}{140}(10,26)
+\only<2->{
+\Large Se han demostrado las siguientes equivalencia} \large
+
+\vspace{0.6cm}
+
+\only<3->{
+\hspace{0.25cm} $\bullet$ Neal, RM. 1994. \textit{Priors for infinite networks}. Universidad de Toronto.
+
+\normalsize Equivalencia entre una red neuronal de una sola capa totalmente conectada infinitamente ancha y los proceso gaussiano.}
+
+\vspace{0.6cm}
+
+\only<4->{
+\hspace{0.25cm} \large $\bullet$ Lee et al (Google Brain). 2018. \textit{Deep Neural Networks as Gaussian Process.} International Conference on Learning Representations
+
+\hspace{0.5cm} \normalsize Derivan la equivalencia exacta entre redes infinitamente profundas y GPs.}
+\end{textblock}
+
+
+\end{frame}
+
 
 
 

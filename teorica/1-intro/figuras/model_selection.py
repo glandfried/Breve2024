@@ -28,43 +28,31 @@ def likelihood(w, t, Phi, beta):
     return res
 
 def moments_predictive(Phi_posteriori, beta, alpha, t_priori=None, Phi_priori=None):
-
     N, D = Phi_posteriori.shape  
-
     if t_priori is None: t_priori, Phi_priori = np.zeros((0,1)), np.zeros((0,D))
-
     m_prior, S_prior = posterior(alpha, beta, t_priori, Phi_priori)
-
     Phi_posteriori.dot(S_prior.dot(Phi_posteriori.T))
-
     sigma2 = Phi_posteriori.dot(S_prior.dot(Phi_posteriori.T)) + (1/beta)*np.eye(Phi_posteriori.shape[0])
     mu = Phi_posteriori.dot(m_prior) # m_N.T.dot(Phi)
     return mu, sigma2
 
 def predictive(t_posteriori, Phi_posteriori, beta, alpha, t_priori=None, Phi_priori=None):
-
     m, S = moments_predictive(Phi_posteriori, beta, alpha, t_priori, Phi_priori)
     return normal.pdf(t_posteriori.ravel(),m.ravel(),S)
 
 def log_evidence(t, Phi, beta, alpha):
     N, M = Phi.shape
-
     m_N, S_N = posterior(alpha, beta, t, Phi)
-
     #m_N == beta*S_N.dot(Phi.T).dot(t)
-
     A = np.linalg.inv(S_N)
     A_det = np.linalg.det(A)
-
     E_mN = (beta/2) * (t - Phi.dot(m_N)).T.dot(t - Phi.dot(m_N)) \
          + (alpha/2) * m_N.T.dot(m_N)
-
     res = (M/2) * np.log(alpha)   \
         + (N/2) * np.log(beta)    \
         - E_mN                    \
         - (1/2) * np.log(A_det)   \
         - (N/2) * np.log(2*np.pi)
-
     return res
 
 def sinus_model(X, variance):
@@ -163,18 +151,18 @@ maxAposteriori = []
 maxApriori = []
 
 def fit(alpha):
-    for d in range(10):#d=0
+    for d in range(10):#d=2
         for i in range(N) :#i=2
-            X_priori = X[:i]
-            t_priori = t[:i]
-            x_posterior = X[i]
-            t_posteriori = t[i]
-            # Design matrix of training observations
-            Phi_priori =  polynomial_basis_function(X_priori, np.array(range(d+1)) )
-            Phi_posteriori = polynomial_basis_function(x_posterior , np.array(range(d+1)))
-            Phi_posteriori = Phi_posteriori.reshape((1,d+1))
-            
-            prior_predictive_online[d,0] += np.log(predictive(t_posteriori, Phi_posteriori, beta, alpha, t_priori, Phi_priori ))
+X_priori = X[:i]
+t_priori = t[:i]
+x_posterior = X[i]
+t_posteriori = t[i]
+# Design matrix of training observations
+Phi_priori =  polynomial_basis_function(X_priori, np.array(range(d+1)) )
+Phi_posteriori = polynomial_basis_function(x_posterior , np.array(range(d+1)))
+Phi_posteriori = Phi_posteriori.reshape((1,d+1))
+
+prior_predictive_online[d,0] += np.log(predictive(t_posteriori, Phi_posteriori, beta, alpha, t_priori, Phi_priori ))
             
             ## Otros indicadores.
             w_map_prior = posterior(alpha, beta, t_priori, Phi_priori)[0]

@@ -106,7 +106,7 @@
 \LARGE \rotatebox[origin=tr]{8}{\textcolor{black!95}{\fontsize{22}{0}\selectfont \textbf{-}}}
 \end{textblock}
 \begin{textblock}{160}(110,3)
-\LARGE \rotatebox[origin=tr]{-14}{\textcolor{black!95}{\fontsize{22}{0}\selectfont \textbf{evolutiva}}}
+\LARGE \rotatebox[origin=tr]{-14}{\textcolor{black!95}{\fontsize{22}{0}\selectfont \textbf{evolutivo}}}
 \end{textblock}
 
 
@@ -138,7 +138,7 @@
 \only<1->{
 \begin{textblock}{160}(0,24) \centering
 
-\Large \only<1>{La función de costo epistémica\phantom{evolutiva}}\only<2->{La función de costo evolutiva\phantom{epistémica}}
+\Large \only<1>{La función de costo epistémico\phantom{evolutiva}}\only<2->{La función de costo evolutiva\phantom{epistémico}}
 
 \large
 \only<1>{\begin{equation*}
@@ -753,7 +753,7 @@ r(N,b) = \frac{n_c}{N}     \, b \,Q_c + \frac{m_s}{N}  \, (1-b)\, Q_s¨
 
 
  \only<7->{
-\begin{textblock}{160}(40,24)
+\begin{textblock}{160}(40,18)
 \begin{flalign*}
 \lim_{N \rightarrow \infty} & r(N,b)  = p \,  Q_c  \, b + (1-p) \, Q_s  \, (1-b) \\[0.5cm]
 \only<8->{& \underset{b}{\text{ arg max }} \  0.5 \cdot 3.0  \cdot b + 0.5 \cdot 1.2  \cdot (1-b)}
@@ -762,8 +762,8 @@ r(N,b) = \frac{n_c}{N}     \, b \,Q_c + \frac{m_s}{N}  \, (1-b)\, Q_s¨
 \end{textblock}
 }
 
-\only<9>{
-\begin{textblock}{160}(0,54) \centering \huge
+\only<9->{
+\begin{textblock}{160}(0,40) \centering \huge
 \begin{equation*}
 \underbrace{b^* = 1}_{\text{\normalsize Especialización total!}}
 \end{equation*}
@@ -771,98 +771,86 @@ r(N,b) = \frac{n_c}{N}     \, b \,Q_c + \frac{m_s}{N}  \, (1-b)\, Q_s¨
 }
 
 
+\only<10>{
+\begin{textblock}{160}(0,72) \centering \Large
+Hay más propiedades que emergen naturalmente de los \\ procesos multiplicativos de evaluación de las variantes
+\end{textblock}
+}
+
 \end{frame}
 
+%
+%
+% \begin{frame}[plain]
+% \begin{textblock}{160}(0,4)
+% \centering \LARGE Heterogenidad cooperativa \\
+% \large \only<2>{Propiedad ecológica}
+% \end{textblock}
+%
+% \only<1>{
+% \begin{textblock}{160}(0,20) \centering \Large
+% ¿Si hay heterogenidad? \\[0.3cm] \large
+%
+%
+% Por ejemplo, si existen "Estaciones" en los hemisferios \small
+%
+% (La moneda tiene una probabilidad en tiempos pares y otra en impares)
+% \end{textblock}
+% }
+%
+% \only<2>{
+% \begin{textblock}{160}(0,35) \centering \Large
+% \includegraphics[width=0.45\textwidth]{figuras/pdf/diversificacionCooperativa}
+% \end{textblock}
+% }
+% \end{frame}
+%
 
 
 \begin{frame}[plain]
 \begin{textblock}{160}(0,4)
-\centering \LARGE Heterogenidad cooperativa \\
-\large \only<2>{Propiedad ecológica}
+\centering \LARGE Bibliografía recomendada
 \end{textblock}
+\vspace{1.2cm}
 
-\only<1>{
-\begin{textblock}{160}(0,20) \centering \Large
-¿Si hay heterogenidad? \\[0.3cm] \large
-
-
-Por ejemplo, si existen "Estaciones" en los hemisferios \small
-
-(La moneda tiene una probabilidad en tiempos pares y otra en impares)
-\end{textblock}
-}
-
-\only<2>{
-\begin{textblock}{160}(0,35) \centering \Large
-\includegraphics[width=0.45\textwidth]{figuras/pdf/diversificacionCooperativa}
-\end{textblock}
-}
-\end{frame}
-
-
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Tecnología de reciprocidad \\
-\large Teoría de la probabilidad
-\end{textblock}
-\vspace{1.2cm} \centering
-
-\only<1>{
-\begin{textblock}{160}(0,30) \Large
-El problema del \textbf{valor justo} da inicio
-
-a la teoría de la probabilidad \\[0.2cm]
-
-\large (Pascal - Fermat 1648)
-\end{textblock}
-}
 
 \only<2->{
-\begin{textblock}{160}(0,22)
-Probabilidad de hacer favores:
+\begin{textblock}{150}(5,14)
+1. La reformulación ergódica de la teoría de Teoría de Utilidad Esperada. \\[0.2cm]
 
-\begin{figure}[ht!]
-    \centering
-    \tikz{
-    \node[latent, draw=white, yshift=0.7cm, minimum size=0.1cm] (b0) {};
-    \node[latent,below=of b0,yshift=0.7cm, xshift=-1cm] (r1) {$S$};
-    \node[latent,below=of b0,yshift=0.7cm, xshift=1cm] (r2) {$C$};
+\normalsize
+\ \ \ $\bullet$ Peters, O. \textit{The ergodicity problem in economics} Nature. 2019.
 
-    \node[latent, below=of r1, draw=white, yshift=0.8cm, minimum size=0.1cm] (bc11) {};
-    \node[accion, below=of r2, draw=white, yshift=0cm, color=blue!70] (bc12) {};
-    \node[latent,below=of bc11,yshift=0.8cm, xshift=-0.5cm] (r1d2) {$S$};
-    \node[latent,below=of bc11,yshift=0.8cm, xshift=0.5cm] (r1d3) {$C$};
-
-    \node[accion,below=of r1d2,yshift=0cm, color=red!70] (br1d2) {};
-    \node[accion,below=of r1d3,yshift=0cm, color=blue!70] (br1d3) {};
-    \edge[-] {b0} {r1,r2};
-    \edge[-] {r1} {bc11};
-    \edge[-] {r2} {bc12};
-    \edge[-] {bc11} {r1d2,r1d3};
-    \edge[-] {r1d2} {br1d2};
-    \edge[-] {r1d3} {br1d3};
-    }
-\end{figure}
+\ \ \  $\bullet$ Peters, O; Amdamou, A. \textit{The time interpretation of expected utility theory} Arxiv. 2021.
 \end{textblock}
 }
 
 
-\only<3>{
-\begin{textblock}{160}(0,68)
-El pago del favor debe ser inverso a la probabilidad
+\only<3->{
+\begin{textblock}{150}(5,35)
+2. Isomorfismo probabilidad-evolución \\[0.2cm]
+
+\normalsize
+\ \ \ $\bullet$ Cz\'egel, D; Zachar, I; Szathm\'ary, E. \textit{Multilevel selection as Bayesian inference, major transitions in individuality as structure learning} Royal Society open science. 2019.
+
+\ \ \  $\bullet$ Cz\'egel, D; Giaffar, H; Tenenbaum, JB; Szathm\'ary, E. \textit{Bayes and Darwin: How replicator populations implement Bayesian computations.} BioEssays. 2022.
+\end{textblock}
+}
+
+\only<4->{
+\begin{textblock}{150}(5,66)
+3. Toma de decisiones como un problema de inferencia (evolutivo) \\[0.2cm]
+
+\normalsize
+\ \ \ $\bullet$ Levine, S. \textit{Reinforcement Learning and Control as Probabilistic
+Inference: Tutorial and Review} Arxiv. 2018.
+
+\ \ \  $\bullet$ Parr, T; Pezzulo, G; Friston, K. \textit{Active Inference} MIT Press. 2022.
 \end{textblock}
 }
 
 
-\only<4>{
-\begin{textblock}{160}(0,66)
-Garantiza \textbf{coexistencia} entre la casa de apuestas y la población cooperativa
-\begin{equation*}
-\cancel{p_{\text{rojo}}} \,  \cancel{Q^*_{\text{rojo}}} \, b + \bcancel{(1- p_{\text{rojo}})} \, \bcancel{Q^*_{\text{azul}}}  \, (1-b) = b + (1-b)  = 1
-\end{equation*}
-\end{textblock}
-}
+
 
 \end{frame}
 
