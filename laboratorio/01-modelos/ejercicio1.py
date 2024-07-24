@@ -66,5 +66,70 @@ pM1_Datos = np.cumprod(pDatos_M1) * pModelo[1] / pDatos
 plt.plot(pM0_Datos , label="M0: No Monty Hall")
 plt.plot(pM1_Datos , label="M1: Monty Hall")
 plt.legend(title="Realidad causal: Monty Hall \n \nProbabilidad de los modelos:")
-plt.show()
+
+
+# Ejercicio 2
+import pandas as pd
+import numpy as np
+import ModeloLineal as ml
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+cmap = plt.get_cmap("tab10")
+
+Alturas = pd.read_csv("datos/alturas.csv")
+
+plt.scatter(Alturas.altura_madre[Alturas.sexo=="M"], Alturas.altura[Alturas.sexo=="M"], label="Masculinos")
+plt.scatter(Alturas.altura_madre[Alturas.sexo=="F"],Alturas.altura[Alturas.sexo=="F"], label="Fememinos")
+plt.xlabel("Altura madre")
+plt.ylabel("Altura")
+plt.legend()
+#plt.show()
+
+N, _ = Alturas.shape
+y = Alturas.altura
+x = pd.DataFrame({"Base": [1 for _ in range(N)],    # Origen
+                  "Altura": Alturas.altura_madre,  # Pendiente
+                  "Genero": (Alturas.sexo=="M")+0     # Genero
+             })
+
+model = sm.OLS(Alturas.altura,x).fit()
+
+X = np.arange(min(Alturas.altura_madre),max(Alturas.altura_madre), step=0.01)
+
+Predicion_Altura_M = model.params.Base + model.params.Altura*X + model.params.Genero
+Predicion_Altura_F = model.params.Base + model.params.Altura*X
+
+plt.scatter(Alturas.altura_madre[Alturas.sexo=="M"],
+            Alturas.altura[Alturas.sexo=="M"],
+            label="Masculino", color=cmap(0))
+plt.plot(X, Predicion_Altura_M , color=cmap(0))
+plt.scatter(Alturas.altura_madre[Alturas.sexo=="F"],
+            Alturas.altura[Alturas.sexo=="F"],
+            label="Femenino", color=cmap(1))
+plt.plot(X, Predicion_Altura_F , color=cmap(1))
+plt.xlabel("Altura madre")
+plt.ylabel("Altura")
+plt.legend()
+#plt.show()
+plt.close()
+
+m_N, S_N = ml.posterior(y, x)
+log_pDatos_Modelo2  = ml.log_evidence(y, x)
+
+x1 = pd.DataFrame({"Base": [1 for _ in range(N)],    # Origen
+                  "Altura": Alturas.altura_madre,  # Pendiente
+             })
+
+x25 = {"Base": [1 for _ in range(N)],    # Origen
+      "Altura": Alturas.altura_madre  # Pendiente
+     }
+for i in range(25):
+    x25[f'id{i}'] = [ ((j % 25) == i)+0 for j in range(N)]
+
+x25 = pd.DataFrame(x25)
+
+
+log_pDatos_Modelo1  = ml.log_evidence(y, x1)
+log_pDatos_Modelo2  = ml.log_evidence(y, x)
+log_pDatos_Modelo25  = ml.log_evidence(y, x25)
 

@@ -7,151 +7,222 @@ from scipy.stats import norm
 import statsmodels.api as sm
 import copy
 #phi = polynomial_basis_function
+from statsmodels.api import OLS # Para selección de hipótesis
+import ModeloLineal as ml       # Para evaluación de hipótesis
+import pandas as pd
 
-random.seed(1)
-np.random.seed(1)
 cmap = plt.get_cmap("tab10")
 
+np.random.seed(1) # Para reproducir los datos
 
-def posterior(alpha, beta, t, Phi):
-    S_N_inv = alpha * np.eye(Phi.shape[1]) + beta * Phi.T.dot(Phi)
-    S_N = np.linalg.inv(S_N_inv)
-    m_N = beta * S_N.dot(Phi.T).dot(t)
-    return m_N, S_N
+N = 20 # Cantidad de datos
+D = 10 # Cantidad de modelos (de 0 al 9)
 
-def likelihood(w, t, Phi, beta):
-    res = 1
-    for i in range(len(t)):
-        mean = w.T.dot(Phi[i])
-        sigma = np.sqrt(beta**(-1))
-        res =  res * norm.pdf(t[i],mean,sigma)
-    return res
+BETA = (1/0.04)  # Precisión de los datos, el inverso de su varianza
+ALPHA = (10e-6) # Precisión de la creencia a prior, el inverso de su varianza
 
-def moments_predictive(Phi_posteriori, beta, alpha, t_priori=None, Phi_priori=None):
+# Realidad causal subyacente
+def realidad_causal_subyacente(X, beta =  BETA):
+    return np.sin(2 * np.pi * X) + np.random.normal(0,np.sqrt(1/beta),X.shape)
 
-    N, D = Phi_posteriori.shape  
+def modelo_causal_deterministico(X, H):
+    y = H[0]*X**0
+    for d in range(1,len(H)):
+        y += H[d]*X**d
+    return y
 
-    if t_priori is None: t_priori, Phi_priori = np.zeros((0,1)), np.zeros((0,D))
-
-    m_prior, S_prior = posterior(alpha, beta, t_priori, Phi_priori)
-
-    Phi_posteriori.dot(S_prior.dot(Phi_posteriori.T))
-
-    sigma2 = Phi_posteriori.dot(S_prior.dot(Phi_posteriori.T)) + (1/beta)*np.eye(Phi_posteriori.shape[0])
-    mu = Phi_posteriori.dot(m_prior) # m_N.T.dot(Phi)
-    return mu, sigma2
-
-def predictive(t_posteriori, Phi_posteriori, beta, alpha, t_priori=None, Phi_priori=None):
-
-    m, S = moments_predictive(Phi_posteriori, beta, alpha, t_priori, Phi_priori)
-    return normal.pdf(t_posteriori.ravel(),m.ravel(),S)
-
-def log_evidence(t, Phi, beta, alpha):
-    N, M = Phi.shape
-
-    m_N, S_N = posterior(alpha, beta, t, Phi)
-
-    #m_N == beta*S_N.dot(Phi.T).dot(t)
-
-    A = np.linalg.inv(S_N)
-    A_det = np.linalg.det(A)
-
-    E_mN = (beta/2) * (t - Phi.dot(m_N)).T.dot(t - Phi.dot(m_N)) \
-         + (alpha/2) * m_N.T.dot(m_N)
-
-    res = (M/2) * np.log(alpha)   \
-        + (N/2) * np.log(beta)    \
-        - E_mN                    \
-        - (1/2) * np.log(A_det)   \
-        - (N/2) * np.log(2*np.pi)
-
-    return res
-
-def sinus_model(X, variance):
-    '''Sinus function plus noise'''
-    return np.sin(2 * np.pi * X) + noise(0,np.sqrt(variance),X.shape)
-
-def polynomial_basis_function(x, degree=1):
-    return x ** degree
-
-N = 20
-
-beta = (1/0.2)**2
-alpha = (10e-6) # Bishop usa alpha = 5e-3
-
-# Data 
-X =np.random.rand(N,1)-0.5
-t = sinus_model(X, 1/beta)
+# Data
+X = np.random.rand(N,1)-0.5
+Y =  realidad_causal_subyacente(X)
 
 # Grilla
 X_grilla = np.linspace(0, 1, 100).reshape(-1, 1)-0.5
-y_grilla = np.linspace(-1.4, 1.4, 100).reshape(-1, 1)
-y_true = sinus_model(X_grilla , 0)
-plt.plot(X_grilla, y_true, '--', color="black")
-plt.plot(X,t,'.', color='black')
+Y_grilla = realidad_causal_subyacente(X_grilla,np.inf )
+
+
+
+# Figura de
+# la función objetivo
+plt.plot(X_grilla, Y_grilla, '--', color="black")
+# y los datos
+plt.plot(X,Y,'.', color='black')
 plt.ylim(-1.5,1.5)
-plt.savefig("pdf/model_selection_true_and_sample.pdf",bbox_inches='tight')
-plt.savefig('png/model_selection_true_and_sample.png', bbox_inches='tight', transparent=False)
-plt.close()    
-
-# OLS 
-import pandas as pd
-data = pd.DataFrame({"X0": X[:,0]**0, 'X1':X[:,0],"X2": X[:,0]**2,"X3": X[:,0]**3,"X4": X[:,0]**4,"X5": X[:,0]**5,"X6": X[:,0]**6,"X7": X[:,0]**7,"X8": X[:,0]**8,"X9": X[:,0]**9})
-
-X_grilla = np.linspace(0, 1, 100).reshape(-1, 1)-0.5
-y_grilla = np.linspace(-1.4, 1.4, 100).reshape(-1, 1)
-y_true = sinus_model(X_grilla , 0)
-plt.plot(X_grilla, y_true, '--', color="black")
-plt.plot(X,t,'.', color='black')
-plt.ylim(-1.5,1.5)
-for i in range(0,10):
-    model = sm.OLS(t,data.iloc[:,0:(i+1)]).fit()
-    pred = model.params["X0"]*X_grilla[:,0]**0
-    for j in range(1,i+1):
-        pred += model.params["X"+str(j)]*X_grilla[:,0]**j
-    plt.plot(X_grilla[:,0], pred)
-    if i == 3:
-        pred3 = copy.deepcopy(pred)
-
-plt.savefig("pdf/model_selection_OLS.pdf",bbox_inches='tight')
-plt.savefig('png/model_selection_OLS.png', bbox_inches='tight', transparent=False)
 plt.close()
 
 
-X_grilla = np.linspace(0, 1, 100).reshape(-1, 1)-0.5
-y_grilla = np.linspace(-1.4, 1.4, 100).reshape(-1, 1)
-y_true = sinus_model(X_grilla , 0)
-plt.plot(X_grilla, y_true, '--', color="black")
-plt.plot(X,t,'.', color='black')
+
+# Las transformaciones de X que hace el modelo Md de complejidad d
+def phi(X, complejidad = D):
+    return(pd.DataFrame({f'X{d}': X[:, 0]**d for d in range(complejidad+1)}))
+
+# Itero por modelos Md
+modelos_OLS = []
+for d in range(D):
+    # Ajusto el modelo de compeljidad d
+    modelos_OLS.append(OLS(Y, phi(X,d)).fit())
+
+# Figura de los ajustes.
+plt.plot(X_grilla, Y_grilla, '--', color="black")
+plt.plot(X,y,'.', color='black')
 plt.ylim(-1.5,1.5)
-plt.plot(X_grilla[:,0], pred, color=cmap(9))
-plt.savefig("pdf/model_selection_OLS_best-at-train.pdf",bbox_inches='tight')
-plt.savefig('png/model_selection_OLS_best-at-train.png', bbox_inches='tight', transparent=False)
+for d in range(D):
+    plt.plot(X_grilla,
+             modelo_causal_deterministico(X_grilla, modelos_OLS[d].params),
+             color=cmap(d), label= f'Modelo {d}' )
+
+plt.legend(ncol=2)
 plt.close()
 
-plt.plot(X_grilla, y_true, '--', color="black")
-plt.plot(X,t,'.', color='black')
-plt.ylim(-1.5,1.5)
-plt.plot(X_grilla[:,0], pred3, color=cmap(3))
-plt.savefig("pdf/model_selection_OLS_best-at-test.pdf",bbox_inches='tight')
-plt.savefig('png/model_selection_OLS_best-at-test.png', bbox_inches='tight', transparent=False)
+from scipy.stats import norm
+
+def prediccion(y,x,H):
+    return norm(loc=modelo_causal_deterministico(x, H),
+             scale=np.sqrt(1/BETA)).pdf(y)[0]
+
+
+log_evidencia_OLS = [0 for _ in range(D)]
+modelos_OLS = [OLS(Y[0:1], phi(X[0:1],d)).fit() for d in range(D)]
+# Itera sobre los datos
+for i in range(1,N):
+    x = X[i]; y = Y[i] # Siguiente dato observado
+    # Itera sobre los modelos
+    for d in range(D):
+        # Hipótesis de máxima verosimilitud
+        H = modelos_OLS[d].params
+        log_evidencia_OLS[d] += np.log(prediccion(y,x,H))
+        modelos_OLS[d] = OLS(Y[0:i+1], phi(X[0:i+1],d)).fit()
+
+
+for d in range(D):
+    plt.bar(d, np.exp(log_evidencia_OLS[d]), align='center', color=cmap(d), label=f'Modelo {d}')
+
+#plt.show()
 plt.close()
 
-model = sm.OLS(t,data).fit_regularized(method='elastic_net', alpha=0.0001, L1_wt=0.0)
-pred = model.params[0]*X_grilla[:,0]**0
-for i in range(1,10):
-    pred += model.params[i]*X_grilla[:,0]**i
 
-plt.plot(X_grilla[:,0], pred, color=cmap(9))
-X_grilla = np.linspace(0, 1, 100).reshape(-1, 1)-0.5
-y_grilla = np.linspace(-1.4, 1.4, 100).reshape(-1, 1)
-y_true = sinus_model(X_grilla , 0)
-plt.plot(X_grilla, y_true, '--', color="black")
-plt.plot(X,t,'.', color='black')
+import ModeloLineal as ml
+from scipy.stats import multivariate_normal
+
+modelos_MAP = []
+for d in range(D):
+    MU_d, COV_d = ml.posterior(Y,phi(X, complejidad = d), alpha=ALPHA*100)
+    modelos_MAP.append({"mean":MU_d.reshape(1,d+1)[0], "cov":COV_d})
+
+
+
+# Figura de los ajustes.
+plt.plot(X_grilla, Y_grilla, '--', color="black")
+plt.plot(X,y,'.', color='black')
 plt.ylim(-1.5,1.5)
-plt.savefig("pdf/model_selection_OLS_L2.pdf",bbox_inches='tight')
-plt.savefig('png/model_selection_OLS_L2.png', bbox_inches='tight', transparent=False)
+for d in range(D):
+    plt.plot(X_grilla,
+             modelo_causal_deterministico(X_grilla, modelos_MAP[d]["mean"]),
+             color=cmap(d), label= f'Modelo {d}' )
+
+plt.legend(ncol=2)
+#plt.show()
+
+
+
+modelos_MAP = []
+for d in range(D):
+    MU_d, COV_d = ml.posterior(Y[0:1],phi(X[0:1], complejidad = d), alpha=ALPHA*10)
+    modelos_MAP.append({"mean":MU_d.reshape(1,d+1)[0], "cov":COV_d})
+
+log_evidencia_MAP = [0 for _ in range(D)]
+# Itera sobre los datos
+for i in range(1,N):
+    x = X[i]; y = Y[i] # Siguiente dato observado
+    # Itera sobre los modelos
+    for d in range(D):
+        # Hipótesis de máxima verosimilitud
+        H = modelos_MAP[d]["mean"]
+        log_evidencia_MAP[d] += np.log(prediccion(y,x,H))
+        MU_d, COV_d = ml.posterior(Y[0:d],phi(X[0:d], complejidad = d), alpha=ALPHA*10)
+        modelos_MAP[d] = {"mean":MU_d.reshape(1,d+1)[0], "cov":COV_d}
+
+
+for d in range(D):
+    plt.bar(d, np.exp(log_evidencia_MAP[d]), align='center', color=cmap(d), label=f'Modelo {d}')
+
+
+
+log_evidence_d = []
+for d in range(D):
+    log_evidence_d.append(ml.log_evidence(Y, phi(X,d))[0][0])
+
+
+for d in range(D):
+    plt.bar(d, np.exp(log_evidence_d[d]) /sum(np.exp(log_evidence_d)), align='center', color=cmap(d), label=f'Modelo {d}')
+
+
 plt.close()
+
+
+modelos_MAP = []
+for d in range(D):
+    MU_d, COV_d = ml.posterior(Y,phi(X, complejidad = d), alpha=ALPHA)
+    modelos_MAP.append({"mean":MU_d.reshape(1,d+1)[0], "cov":COV_d})
+
+plt.plot(X_grilla, Y_grilla, '--', color="black")
+plt.plot(X,y,'.', color='black')
+plt.ylim(-1.5,1.5)
+for d in range(D):
+    plt.plot(X_grilla,
+             modelo_causal_deterministico(X_grilla, modelos_MAP[d]["mean"]),
+             color=cmap(d), label= f'Modelo {d}' )
+
+plt.axvline(-0.23, linestyle="--", color = "gray", alpha=0.3)
+plt.legend(ncol=2)
+plt.show()
+
+
+
+x_new = np.array([[-0.23]])
+y_range = np.arange(-2.5,0.5,0.01).reshape(1,300)
+
+py_xnewDatosMd = []
+for d in range(D):
+    pred = ml.predictive(t_posteriori=y_range, Phi_posteriori = np.matrix(phi(x_new,d)), alpha=ALPHA, beta=BETA, t_priori= Y[0:4], Phi_priori = np.matrix(phi(X[0:4],d)))
+    py_xnewDatosMd.append(pred)
+
+
+
+plt.plot(y_range[0,:], py_xnewDatosMd[0], color=cmap(0), label = "Rígido (grado 0)")
+plt.plot(y_range[0,:], py_xnewDatosMd[3], color=cmap(3), label = "Simple (grado 3)")
+plt.plot(y_range[0,:], py_xnewDatosMd[9], color=cmap(9), label = "Complejo (grado 9)")
+plt.xlabel("y|x=-0.23")
+plt.ylabel("P(Datos | Modelo)")
+plt.legend()
+plt.show()
+
+
+N, D = Phi_posteriori.shape
+if t_priori is None: t_priori, Phi_priori = np.zeros((0,1)), np.zeros((0,D))
+    m_prior, S_prior = posterior(t_priori, Phi_priori, alpha, beta)
+    Phi_posteriori.dot(S_prior.dot(Phi_posteriori.T))
+    sigma2 = Phi_posteriori.dot(S_prior.dot(Phi_posteriori.T)) + (1/beta)*np.eye(Phi_posteriori.shape[0])
+    mu = Phi_posteriori.dot(m_prior) # m_N.T.dot(Phi)
+
+
+
+MU_3, COV_3 = ml.posterior(Y,phi(X, complejidad = ))
+MU_3, COV_3 = ml.posterior(Y,phi(X, complejidad = 3))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 prior_predictive_online = np.zeros((10,1))
 prior_maxAposteriori_online = np.zeros((10,1))
