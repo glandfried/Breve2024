@@ -96,7 +96,7 @@ for r in eachrow(df)#r= df[1,:]
             wF = wF + log(1-abs(l)*f)
             wD = wD + log(1-abs(l)*(p))
         end
-        wB = wB + log(  1-abs(l)     + p*abs(l)*r.b_winner )
+        wB = wB + log(  1-abs(l)     + p*abs(l)*r.b_winner ) # Se podría usar un laverage distinto para cada caso
         wP = wP + log( p*r.b_winner )
     end
 end

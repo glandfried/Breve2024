@@ -993,6 +993,122 @@ convergence(h, epsilon = 0.01, iterations = 10)
 \end{frame}
 
 
+
+
+
+\begin{frame}[plain]
+\begin{textblock}{160}(0,4)
+\centering \LARGE Monty Hall\\
+\large \only<2->{Con sesgo }\only<8->{dinámico}
+\end{textblock}
+
+
+\begin{textblock}{80}(5,12)
+\raggedright
+%\onslide<2->{Modelo gráfico} \\ \vspace{0.3cm}
+ \tikz{
+
+    \node[det, minimum size=0.8cm] (s) {\includegraphics[width=0.05\textwidth]{../../auxiliar/static/dedo.png}\only<8->{$_1$}} ;
+    \node[factor, above=of s, yshift=-0.4cm] (fs) {};
+
+    \node[const,right=of fs] (ps) {\normalsize $P(s|r,c)$} ;
+
+    \only<-5,8->{
+      \node[det, above=of fs, minimum size=0.8cm, yshift=-0.5cm] (r) {\includegraphics[width=0.07\textwidth]{../../auxiliar/static/regalo.png}\only<8->{$_1$}} ;
+    }
+    \only<6-7>{
+      \node[det, above=of fs, fill=black!15, minimum size=0.8cm, yshift=-0.5cm] (r) {\includegraphics[width=0.07\textwidth]{../../auxiliar/static/regalo.png}\only<8->{$_1$}} ;
+    }
+
+    \node[det, minimum size=0.6cm, fill=black!60, left=of fs, xshift=0.5cm] (c) {\includegraphics[width=0.045\textwidth]{../../auxiliar/static/cerradura.png}} ;
+    %\node[const,above=of c] (pc) {\normalsize $\text{do}(c) = 1$} ;
+
+    \node[factor, above=of r, yshift=-0.4cm] (fr) {};
+
+    \only<1>{
+      \node[const, above=of fr] (tr) {\normalsize
+      \begin{tabular}{|c|c|c|}
+        1 & 2 & 3 \\ \hline
+        1/3 & 1/3 & 1/3 \\ \hline
+      \end{tabular}
+      } ;
+      \node[const, above=of tr] (pr) {\normalsize $P(r)$ } ;
+    }
+    \only<2->{
+      \node[det, above=of fr, minimum size=0.8cm, yshift=-0.5cm] (p) {\includegraphics[width=0.07\textwidth]{../../auxiliar/static/cara-emoji.png}\only<8->{$_1$}} ;
+      \only<-7>{
+        \node[factor, above=of p, yshift=-0.4cm] (fp) {};
+      }
+      \only<8->{
+        \node[factor, left=of p, xshift=-0.2cm] (fp) {};
+      }
+      \node[const, above=of fp, yshift=0.15cm] (pr) {\normalsize\only<2-3>{Uniforme?}\only<4-5>{Dirichlet$(1,1,1)$}\only<6>{Dirichlet$(5,5,5)$}\only<7>{Dirichlet$(2,5,15)$}\only<8->{Dirichlet$(a_1,b_1,c_1)$}} ;
+    }
+
+%     \only<5->{
+%       \node[factor, right=of r, xshift=0.2cm] (fr2) {};
+%     }
+    \only<8->{
+      \node[factor, right=of p, xshift=1.3cm] (fp2) {};
+      \node[det, right=of fp2, minimum size=0.8cm, xshift=1.3cm] (p2) {\includegraphics[width=0.07\textwidth]{../../auxiliar/static/cara-emoji.png}$_2$} ;
+      \node[const, above=of fp2, yshift=0.15cm] (pp2) {\normalsize $\text{D}(\alpha + a_1 (1-\alpha) ,\, \dots)$} ;
+      \node[factor, below=of p2, yshift=0.5cm] (fr2) {};
+      \node[det, below=of fr2, minimum size=0.8cm, yshift=0.4cm] (r2) {\includegraphics[width=0.07\textwidth]{../../auxiliar/static/regalo.png}$_2$} ;
+      \node[factor, below=of r2, yshift=0.5cm] (fs2) {};
+      \node[det, below=of fs2, minimum size=0.8cm, yshift=0.4cm] (s2) {\includegraphics[width=0.05\textwidth]{../../auxiliar/static/dedo.png}$_2$} ;
+      \node[det, minimum size=0.6cm, fill=black!60, left=of fs2, xshift=0.5cm] (c2) {\includegraphics[width=0.045\textwidth]{../../auxiliar/static/cerradura.png}} ;
+      \node[const,right=of fs2] (ps2) {\normalsize $P(s|r,c)$} ;
+      \node[const,left=of fr] (pr) {\normalsize Categorical$(p_1)$} ;
+      \node[const,left=of fr2] (pr2) {\normalsize Categorical$(p_1)$} ;
+    }
+
+
+    \node[invisible,above=of fr, yshift=2.9cm] (ia) {} ;
+    \node[invisible,left=of s, xshift=-2.9cm] (il) {} ;
+
+    \edge {fr} {r};
+    \edge[-] {r,c} {fs};
+    \edge {fs} {s};
+    \only<2->{
+      \edge {fp} {p};
+      \edge[-] {p} {fr};
+    }
+    \only<8->{
+      \edge[-] {p} {fp2};
+      \edge {fp2} {p2};
+      \edge[-] {p2} {fr2};
+      \edge {fr2} {r2};
+      \edge[-] {r2,c2} {fs2};
+      \edge {fs2} {s2};
+    }
+    %\edge[-] {r} {fr2};
+
+    \only<5->{\plate {datos} {(r)(s)(c)(ps)} {$i: $ Datos\vspace{1cm}};}
+    \only<8->{\plate {datos2} {(r2)(s2)(c2)(ps2)} {$i: $ Datos\vspace{1cm}};}
+
+}
+\end{textblock}
+
+\only<3-5>{
+\begin{textblock}{80}(75,16)
+\includegraphics[width=1\textwidth]{figuras/dirichlet0.pdf}
+\end{textblock}
+}
+\only<6>{
+\begin{textblock}{80}(75,16)
+\includegraphics[width=1\textwidth]{figuras/dirichlet1.pdf}
+\end{textblock}
+}
+\only<7>{
+\begin{textblock}{80}(75,16)
+\includegraphics[width=1\textwidth]{figuras/dirichlet2.pdf}
+\end{textblock}
+}
+
+
+\end{frame}
+
+
 %
 % \begin{frame}[plain]
 % \begin{textblock}{160}(0,4)
@@ -1041,205 +1157,205 @@ convergence(h, epsilon = 0.01, iterations = 10)
 %
 % \end{frame}
 %
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Modelos lineas para series temporales \\
-\large \only<1-4>{Modelo lineal básico}\only<5->{Structural state-space models}
-\end{textblock}
-
-\only<1->{
-\begin{textblock}{155}(20,20)
-\raggedright
-\tikz{
-    \node[latent, fill=black!20] (y) {$y\only<5->{_0}$} ; %
-    \node[factor, above=of y, yshift=-0.4cm] (fy) {} ; %
-    \only<1-4>{
-      \node[const, right=of fy] (py) {$p(y|\bm{w}, x) = \N(\, y \, | \, \only<1>{w_0 + w_1 \, x_1 + w_2 \, x_2^2 + w_3 \, x_3^3}\only<2>{\sum_i w_i \phi_i(x)}\only<3->{\bm{w}^T \bm{\phi}(x)}, \, \beta^2) $};
-    }
-
-    \node[latent, left=of fy, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x) {} ;
-
-    \node[const, left=of x] (c_x) {$x\only<5->{_0}$};
-
-    \node[latent, above=of fy, yshift=-0.55cm] (w) {$\bm{w}\only<5->{_0}$};
-
-    \only<1-4>{\node[factor, above=of w, yshift=-0.4cm] (fw) {};}
-    \only<5->{\node[factor, left=of w, xshift=0.4cm] (fw) {};}
-    \only<1-4>{
-      \node[const, right=of fw] (py) {$p(\bm{w}) = \only<1-3>{\prod_i \N(\, w_i \, | \, 0 , \, \sigma^2)}\only<4->{\N(\, \bm{w} \, | \, 0 , \, \bm{S})}$};
-    }
-    \only<5->{
-      \node[const, above=of fw] (py) {$p(\bm{w}_0)$};
-    }
-
-%     \only<5->{
-%       \node[const, right=of fy] (py) {$p(y|\bm{w}, x)$};
-%     }
-
-    \only<5->{
-      \node[factor, right=of w] (fw1) {};
-      \node[latent, right=of fw1, xshift=0.15cm] (w1) {$\bm{w}_1$};
-      \node[factor, below=of w1, yshift=0.55cm] (fy1) {};
-      \node[latent, below=of fy1, fill=black!15, yshift=0.4cm] (y1) {$y_1$};
-      \node[latent, left=of fy1, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x1) {} ;
-      \node[const, left=of x1] (nx1) {$x_1$};
-
-      \node[factor, right=of w1] (fw2) {};
-      \node[latent, right=of fw2, xshift=0.15cm] (w2) {$\bm{w}_2$};
-      \node[factor, below=of w2, yshift=0.55cm] (fy2) {};
-      \node[latent, below=of fy2, yshift=0.4cm] (y2) {$y_2$};
-      \node[latent, left=of fy2, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x2) {} ;
-      \node[const, left=of x2] (nx2) {$x_2$};
-
-      \only<5-6>{\node[const, above=of fw1] (nfw1) {\normalsize$\N(\bm{w}_{t+1}|\bm{w}_t, R )$};}
-      \node[const, right=of fy2] (nfy2) {\normalsize $\N(\, y_t \, | \, \bm{w}_t^T \bm{\phi}(x_t), \, \beta^2) $};
-    }
 %
-%     \only<6->{
-%       \draw[dashed] (4.1,-1.2) -- (4.1,4.5);
-%       \node[const, xshift=2.7cm, yshift=-1cm] (pre) {\normalsize Pre-tratamiento};
-%       \node[const, xshift=5.6cm, yshift=-1cm] (pre) {\normalsize Post-tratamiento};
+% \begin{frame}[plain]
+% \begin{textblock}{160}(0,4)
+% \centering \LARGE Modelos lineas para series temporales \\
+% \large \only<1-4>{Modelo lineal básico}\only<5->{Structural state-space models}
+% \end{textblock}
+%
+% \only<1->{
+% \begin{textblock}{155}(20,20)
+% \raggedright
+% \tikz{
+%     \node[latent, fill=black!20] (y) {$y\only<5->{_0}$} ; %
+%     \node[factor, above=of y, yshift=-0.4cm] (fy) {} ; %
+%     \only<1-4>{
+%       \node[const, right=of fy] (py) {$p(y|\bm{w}, x) = \N(\, y \, | \, \only<1>{w_0 + w_1 \, x_1 + w_2 \, x_2^2 + w_3 \, x_3^3}\only<2>{\sum_i w_i \phi_i(x)}\only<3->{\bm{w}^T \bm{\phi}(x)}, \, \beta^2) $};
 %     }
+%
+%     \node[latent, left=of fy, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x) {} ;
+%
+%     \node[const, left=of x] (c_x) {$x\only<5->{_0}$};
+%
+%     \node[latent, above=of fy, yshift=-0.55cm] (w) {$\bm{w}\only<5->{_0}$};
+%
+%     \only<1-4>{\node[factor, above=of w, yshift=-0.4cm] (fw) {};}
+%     \only<5->{\node[factor, left=of w, xshift=0.4cm] (fw) {};}
+%     \only<1-4>{
+%       \node[const, right=of fw] (py) {$p(\bm{w}) = \only<1-3>{\prod_i \N(\, w_i \, | \, 0 , \, \sigma^2)}\only<4->{\N(\, \bm{w} \, | \, 0 , \, \bm{S})}$};
+%     }
+%     \only<5->{
+%       \node[const, above=of fw] (py) {$p(\bm{w}_0)$};
+%     }
+%
+% %     \only<5->{
+% %       \node[const, right=of fy] (py) {$p(y|\bm{w}, x)$};
+% %     }
+%
+%     \only<5->{
+%       \node[factor, right=of w] (fw1) {};
+%       \node[latent, right=of fw1, xshift=0.15cm] (w1) {$\bm{w}_1$};
+%       \node[factor, below=of w1, yshift=0.55cm] (fy1) {};
+%       \node[latent, below=of fy1, fill=black!15, yshift=0.4cm] (y1) {$y_1$};
+%       \node[latent, left=of fy1, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x1) {} ;
+%       \node[const, left=of x1] (nx1) {$x_1$};
+%
+%       \node[factor, right=of w1] (fw2) {};
+%       \node[latent, right=of fw2, xshift=0.15cm] (w2) {$\bm{w}_2$};
+%       \node[factor, below=of w2, yshift=0.55cm] (fy2) {};
+%       \node[latent, below=of fy2, yshift=0.4cm] (y2) {$y_2$};
+%       \node[latent, left=of fy2, xshift=0.75cm ,fill=black!100, minimum size=2pt] (x2) {} ;
+%       \node[const, left=of x2] (nx2) {$x_2$};
+%
+%       \only<5-6>{\node[const, above=of fw1] (nfw1) {\normalsize$\N(\bm{w}_{t+1}|\bm{w}_t, R )$};}
+%       \node[const, right=of fy2] (nfy2) {\normalsize $\N(\, y_t \, | \, \bm{w}_t^T \bm{\phi}(x_t), \, \beta^2) $};
+%     }
+% %
+% %     \only<6->{
+% %       \draw[dashed] (4.1,-1.2) -- (4.1,4.5);
+% %       \node[const, xshift=2.7cm, yshift=-1cm] (pre) {\normalsize Pre-tratamiento};
+% %       \node[const, xshift=5.6cm, yshift=-1cm] (pre) {\normalsize Post-tratamiento};
+% %     }
+%
+%     \only<7->{
+%       \node[latent, above=of fw1] (z1) {$\bm{z}_1$};
+%       \node[latent, above=of fw2] (z2) {$\bm{z}_2$};
+%       \node[factor, left=of z1] (fz1) {};
+%       \node[factor, left=of z2, xshift=-0.15cm] (fz2) {};
+%       \node[const, above=of fz2] (nfz2) {\normalsize$\N(\bm{z}_{t+1}|\bm{z}_t, Q )$ \ \  };
+%     }
+%     \only<8->{
+%       \node[const, right=of fw2, yshift=0.6cm] (nfwt) {\normalsize$p(\bm{w}_{t+1}|\bm{w}_t,\bm{z}_t) = \N(\bm{w}_{t+1}|\bm{w}_t^T \Phi(\bm{z}_t), R )$ \ \  };
+%     }
+%
+%
+%
+%     \edge {fw} {w};
+%     \edge[-] {x,w} {fy};
+%     \edge {fy} {y};
+%     \only<5->{
+%       \edge[-] {w} {fw1};
+%       \edge {fw1} {w1};
+%       \edge[-] {x1,w1} {fy1};
+%       \edge {fy1} {y1};
+%       \edge[-] {w1} {fw2};
+%       \edge {fw2} {w2};
+%       \edge[-] {x2,w2} {fy2};
+%       \edge {fy2} {y2};
+%     }
+%     \only<7->{
+%       \edge {fz1} {z1};
+%       \edge[-] {z1} {fz2};
+%       \edge {fz2} {z2};
+%       \edge[-] {z1} {fw1};
+%       \edge[-] {z2} {fw2};
+%     }
+%
+%
+%     \node[invisible, above=of w, yshift=2cm] (ia) {};
+%     \node[invisible, left=of y, xshift=-1.3cm] (il) {};
+%
+%     %\plate {no} {(x)(y)(data_inv)(c_x)} {$i: $ Datos\vspace{1cm}}; %
+% }
+% \end{textblock}
+% }
+%
+%
+% \end{frame}
+%
+%
+% \begin{frame}[plain]
+% \begin{textblock}{160}(0,4)
+% \centering \LARGE Limitaciones \\
+% \large Modelo lineal
+% \end{textblock}
+%
+%
+% \begin{textblock}{160}(0,24) \Large \centering
+% La transformaciones no-lineales $\Phi(x)$ están fijas.
+% \begin{equation*}
+% f(x,\bm{w}) = \bm{w}^T \Phi(x)
+% \end{equation*}
+% \end{textblock}
+%
+% \only<2->{
+% \begin{textblock}{160}(0,56) \Large \centering
+% Necesitaríamos infinitos modelos \\
+% para poder representar cualquier función!
+% \end{textblock}
+% }
+%
+% \end{frame}
+%
+%
+% \begin{frame}[plain]
+% \begin{textblock}{160}(0,4)
+% \centering \LARGE Procesos Gaussianos \\
+% \large Evaluación de infinitos modelos $f(\bm{x})$
+% \end{textblock}
+% \vspace{1cm}\centering
+%
+% \begin{equation*}
+% \begin{split}
+% p(y_i) &= \N(y_i|f(\bm{x}_i), \beta^2) \ \ \ \ \text{ donde } f \text{ es la función objetivo}\\[0.6cm]
+% &\text{Prior sobre los modelos:}\\
+%  f(\bm{x}) &\sim \mathcal{GP}(m(\bm{x}), k(\bm{x},\bm{x}^{\prime}) )  \\[0.4cm]
+% \onslide<2->{& m(\bm{x})  = \mathbb{E}[f(\bm{x})] \\
+% & k(\bm{x},\bm{x}^{\prime}) = \mathbb{E}[(f(\bm{x})-m(\bm{x}))(f(\bm{x}^{\prime})-m(\bm{x}^{\prime}))]}
+% \end{split}
+% \end{equation*}
+%
+% \Large \vspace{0.6cm}
+%
+% \onslide<3->{Posterior sobre los modelos tiene solución analítica!}
+%
+% \end{frame}
+%
+%
+% \begin{frame}[plain]
+% \begin{textblock}{160}(0,4)
+% \centering \LARGE Procesos Gaussianos \\
+% \large Evaluación de infinitos modelos $f(\bm{x})$
+% \end{textblock}
+% \centering
+% \vspace{1.5cm}
+%
+% \includegraphics[width=0.8\textwidth]{figuras/pdf/gaussianProcess.pdf}
+%
+%
+% \end{frame}
+%
 
-    \only<7->{
-      \node[latent, above=of fw1] (z1) {$\bm{z}_1$};
-      \node[latent, above=of fw2] (z2) {$\bm{z}_2$};
-      \node[factor, left=of z1] (fz1) {};
-      \node[factor, left=of z2, xshift=-0.15cm] (fz2) {};
-      \node[const, above=of fz2] (nfz2) {\normalsize$\N(\bm{z}_{t+1}|\bm{z}_t, Q )$ \ \  };
-    }
-    \only<8->{
-      \node[const, right=of fw2, yshift=0.6cm] (nfwt) {\normalsize$p(\bm{w}_{t+1}|\bm{w}_t,\bm{z}_t) = \N(\bm{w}_{t+1}|\bm{w}_t^T \Phi(\bm{z}_t), R )$ \ \  };
-    }
-
-
-
-    \edge {fw} {w};
-    \edge[-] {x,w} {fy};
-    \edge {fy} {y};
-    \only<5->{
-      \edge[-] {w} {fw1};
-      \edge {fw1} {w1};
-      \edge[-] {x1,w1} {fy1};
-      \edge {fy1} {y1};
-      \edge[-] {w1} {fw2};
-      \edge {fw2} {w2};
-      \edge[-] {x2,w2} {fy2};
-      \edge {fy2} {y2};
-    }
-    \only<7->{
-      \edge {fz1} {z1};
-      \edge[-] {z1} {fz2};
-      \edge {fz2} {z2};
-      \edge[-] {z1} {fw1};
-      \edge[-] {z2} {fw2};
-    }
-
-
-    \node[invisible, above=of w, yshift=2cm] (ia) {};
-    \node[invisible, left=of y, xshift=-1.3cm] (il) {};
-
-    %\plate {no} {(x)(y)(data_inv)(c_x)} {$i: $ Datos\vspace{1cm}}; %
-}
-\end{textblock}
-}
-
-
-\end{frame}
-
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Limitaciones \\
-\large Modelo lineal
-\end{textblock}
-
-
-\begin{textblock}{160}(0,24) \Large \centering
-La transformaciones no-lineales $\Phi(x)$ están fijas.
-\begin{equation*}
-f(x,\bm{w}) = \bm{w}^T \Phi(x)
-\end{equation*}
-\end{textblock}
-
-\only<2->{
-\begin{textblock}{160}(0,56) \Large \centering
-Necesitaríamos infinitos modelos \\
-para poder representar cualquier función!
-\end{textblock}
-}
-
-\end{frame}
-
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Procesos Gaussianos \\
-\large Evaluación de infinitos modelos $f(\bm{x})$
-\end{textblock}
-\vspace{1cm}\centering
-
-\begin{equation*}
-\begin{split}
-p(y_i) &= \N(y_i|f(\bm{x}_i), \beta^2) \ \ \ \ \text{ donde } f \text{ es la función objetivo}\\[0.6cm]
-&\text{Prior sobre los modelos:}\\
- f(\bm{x}) &\sim \mathcal{GP}(m(\bm{x}), k(\bm{x},\bm{x}^{\prime}) )  \\[0.4cm]
-\onslide<2->{& m(\bm{x})  = \mathbb{E}[f(\bm{x})] \\
-& k(\bm{x},\bm{x}^{\prime}) = \mathbb{E}[(f(\bm{x})-m(\bm{x}))(f(\bm{x}^{\prime})-m(\bm{x}^{\prime}))]}
-\end{split}
-\end{equation*}
-
-\Large \vspace{0.6cm}
-
-\onslide<3->{Posterior sobre los modelos tiene solución analítica!}
-
-\end{frame}
-
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Procesos Gaussianos \\
-\large Evaluación de infinitos modelos $f(\bm{x})$
-\end{textblock}
-\centering
-\vspace{1.5cm}
-
-\includegraphics[width=0.8\textwidth]{figuras/pdf/gaussianProcess.pdf}
-
-
-\end{frame}
-
-
-
-\begin{frame}[plain]
-\begin{textblock}{160}(0,4)
-\centering \LARGE Procesos Gaussianos \\
-\large y Redes Neuronales
-\end{textblock}
-
-
-\begin{textblock}{140}(10,26)
-\only<2->{
-\Large Se han demostrado las siguientes equivalencia} \large
-
-\vspace{0.6cm}
-
-\only<3->{
-\hspace{0.25cm} $\bullet$ Neal, RM. 1994. \textit{Priors for infinite networks}. Universidad de Toronto.
-
-\normalsize Equivalencia entre una red neuronal de una sola capa totalmente conectada infinitamente ancha y los proceso gaussiano.}
-
-\vspace{0.6cm}
-
-\only<4->{
-\hspace{0.25cm} \large $\bullet$ Lee et al (Google Brain). 2018. \textit{Deep Neural Networks as Gaussian Process.} International Conference on Learning Representations
-
-\hspace{0.5cm} \normalsize Derivan la equivalencia exacta entre redes infinitamente profundas y GPs.}
-\end{textblock}
-
-
-\end{frame}
+%
+% \begin{frame}[plain]
+% \begin{textblock}{160}(0,4)
+% \centering \LARGE Procesos Gaussianos \\
+% \large y Redes Neuronales
+% \end{textblock}
+%
+%
+% \begin{textblock}{140}(10,26)
+% \only<2->{
+% \Large Se han demostrado las siguientes equivalencia} \large
+%
+% \vspace{0.6cm}
+%
+% \only<3->{
+% \hspace{0.25cm} $\bullet$ Neal, RM. 1994. \textit{Priors for infinite networks}. Universidad de Toronto.
+%
+% \normalsize Equivalencia entre una red neuronal de una sola capa totalmente conectada infinitamente ancha y los proceso gaussiano.}
+%
+% \vspace{0.6cm}
+%
+% \only<4->{
+% \hspace{0.25cm} \large $\bullet$ Lee et al (Google Brain). 2018. \textit{Deep Neural Networks as Gaussian Process.} International Conference on Learning Representations
+%
+% \hspace{0.5cm} \normalsize Derivan la equivalencia exacta entre redes infinitamente profundas y GPs.}
+% \end{textblock}
+%
+%
+% \end{frame}
 
 
 

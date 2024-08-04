@@ -1,0 +1,40 @@
+\documentclass[10pt]{standalone}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+
+\input{../../../auxiliar/tex/tikzlibrarybayesnet.code.tex}
+
+%\renewcommand{\familydefault}{\sfdefault}
+\begin{document}
+
+\tikz{
+  \node[latent] (z1) {$z_1$} ;
+  \node[latent, below=of z1] (w1) {$w_1$} ;
+  \node[latent, fill=red!30, right=of w1] (z3) {$z_3$} ;
+  \node[latent, fill=red!30, right=of z3] (w2) {$w_2$} ;
+  \node[latent, above=of w2] (z2) {$z_2$} ;
+  \node[latent, fill=black!15, below=of w1] (x) {$x$} ;
+  \node[latent, below=of z3] (w3) {$w_3$} ;
+  \node[latent, fill=black!15, below=of w2] (y) {$y$} ;
+
+    \node[const, below=of z1, xshift=-0.2cm, yshift=-0.15cm] (z1_w1) {$6$};
+    \node[const, below=of z2, xshift=0.2cm, yshift=-0.15cm] (z2_w2) {$5$};
+    \node[const, above=of z3, xshift=-0.6cm, yshift=0.4cm] (z3_z1) {$-4$};
+    \node[const, above=of z3, xshift=0.63cm, yshift=0.43cm] (z2_z1) {$3$};
+    \node[const, below=of z3, xshift=-1cm, yshift=-0.1cm] (z2_x) {$2$};
+    \node[const, below=of z3, xshift=1.05cm, yshift=-0.1cm] (z2_y) {$-1$};
+    \node[const, below=of w1, xshift=-0.35cm, yshift=-0.15cm] (w1_x) {$-1$};
+    \node[const, below=of w2, xshift=0.2cm, yshift=-0.15cm] (w2_y) {$1$};
+    \node[const, below=of x, xshift=0.8cm, yshift=0.3cm] (x_w3) {$2$};
+    \node[const, below=of w3, xshift=0.8cm, yshift=0.3cm] (w3_y) {$-1$};
+
+  \edge {w3,z3,w2} {y}
+  \edge {x} {w3}
+  \edge {z1} {w1}
+  \edge {z2} {w2}
+  \edge {z1,z2} {z3}
+  \edge {w1,z3} {x}
+
+}
+
+\end{document}
