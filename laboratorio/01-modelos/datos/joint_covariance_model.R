@@ -157,7 +157,20 @@ cov[8,9] = s89[2,2] - s8[2]*s9[2]
 simlated_data <- sampler_from_joint(Sjoint=Sjoint,
                                       Xjoint=Xjoint,
                                       P=c(0.5,0.5,0.5,0.5),
-                                      n_individuals=N)
+                                      n_individuals=1000)
 
+
+# Verificando que la generación de datos sea correcta.
+#
+# data89 = simlated_data[simlated_data[,"State"]==1, c("Test8","Test9")]
+# contingency_table_89 = matrix(0, nrow=2,ncol=2)
+# for ( i in seq(dim(data89)[1])){
+#     i8 = data89[i,1]
+#     i9 = data89[i,2]
+#     contingency_table_89[i8+1, i9+1] = contingency_table_89[i8+1, i9+1] + 1
+# }
+# contingency_table_89 = contingency_table_89/dim(data89)[1]
+# sum(abs(s89 - contingency_table_89) < 0.01) == 4
 
 write.csv(simlated_data, "Covariance_Simulated_Data.csv")
+

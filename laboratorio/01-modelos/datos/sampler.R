@@ -45,7 +45,7 @@ sampler_from_joint <- function(Sjoint=c(0.17, 0.32, 0.27, 0.72),          # Sens
 
 
         for (id in seq(length(Sjoint)) ){ # id=5
-            diagnosis = rev(base2(id-1,n_tests))
+            diagnosis = base2(id-1,n_tests)
 
             # Agrega a diagnósticos a res
             #
