@@ -65,8 +65,10 @@ observable = list(
     "t1"=T1,
     "t2"=T2,
     "N" = N,
-    "D" = D
+    "D" = D,
+    "m" = 0
 )
+
 
 inits = list()
 for (c in seq(n.chains )){
@@ -113,6 +115,100 @@ for (vn in variables_names ){
     brief[vn,c("2.5%", "Median", "97.5%")] = quantile(colapsed[,vn], p=c(0.025, 0.5,0.975))
 }
 
-brief
+
+
+plot_estimates <- function(real,estimates,ylim,xlim,name, max=NA, min=NA){
+
+    grilla = seq(ylim[1],ylim[2],by=0.05)
+
+    if (is.na(max[1])){
+        max = rep(-10, length(real))
+        min = rep(-10, length(real))
+    }
+
+    plot(0,0,col=rgb(1,1,1,0),  ylim=ylim, xlim=xlim, axes=F, xlab="", ylab="")
+    for (is in seq(length(real))){#is=1
+        points(is, real[is], pch=19)
+        text(is, ylim[2],paste0(name,toString(is)), cex=1.5, col=rgb(0,0,0,0.6))
+        if (length(real)>1){
+            segments(x0=is, x1=is, y0=estimates[is,1], y1=estimates[is,3],lwd=1)
+            segments(x0=is-0.05, x1=is+0.05, y0=estimates[is,2], y1=estimates[is,2])
+        }
+        if (length(real)==1){
+            segments(x0=is, x1=is, y0=estimates[1], y1=estimates[3],lwd=1)
+            segments(x0=is-0.05, x1=is+0.05, y0=estimates[2], y1=estimates[2])
+        }
+        segments(x0=is-0.1, x1=is+0.1, y0=max[is], y1=max[is], lty=2)
+        segments(x0=is-0.1, x1=is+0.1, y0=min[is], y1=min[is], lty=2)
+    }
+
+    abline(v=3.5)
+    axis(side=2, at= grilla ,labels=NA,cex.axis=0.6,tck=0.015)
+    #axis(side=1, labels=NA,cex.axis=0.6,tck=0.015)
+    #axis(lwd=0,side=1, cex.axis=1.5,line=-0.45)
+    axis(lwd=0,side=2,at= grilla, cex.axis=1.5,line=-0.45)
+    abline(h=grilla, col=rgb(0,0,0,0.1))
+}
+
+load("datos/real.RData")
+cov_real = numeric(36)
+c = 1
+for (i in seq(8)){
+    for (j in seq(i+1,9)){
+    cov_real[c] = cov[i,j]
+    c = c + 1
+    }
+}
+
+
+
+s = brief[seq(36*2+4, 36*2+4+8),seq(3)]
+covs = brief[seq(36),seq(3)]
+
+
+plot_estimates(real=S,estimates=s,ylim=c(0.65,1), xlim=c(0.75, length(S)+0.25), name="s")
+
+
+observable_HuiWalter = list(
+    "Tests" = N_tests,
+    "Combinations" = length(N),
+    "t1"=T1,
+    "t2"=T2,
+    "N" = N,
+    "D" = D,
+    "m" = 0
+)
+model.engine.HW <- jags.model(
+    file = model.especification,
+    data = observable,
+    inits = inits,
+    n.chains = n.chains,
+    n.adapt = n.adapt
+)
+
+# Burn
+update(model.engine.HW , n.burn = 5000)
+
+# Sample
+chains_HW <- coda.samples(
+    model = model.engine ,
+    variable.names = c('s','x','p', 'covs', 'covx', 'm', 'pm'),
+    n.iter = n.iter,
+    thin = thin
+)
+
+
+variables_names = colnames(chains_HW[[1]])
+brief_HW = matrix(nrow=length(variables_names), ncol=5)
+colnames(brief_HW) = c("2.5%", "Median", "97.5%", "psrf.point", "psrf.upper")
+rownames(brief_HW) = variables_names
+colapsed_HW = rbind(chains_HW[[1]],chains_HW[[2]])
+for (vn in variables_names ){
+    brief_HW[vn,c("2.5%", "Median", "97.5%")] = quantile(colapsed_HW[,vn], p=c(0.025, 0.5,0.975))
+}
+
+s_HW = brief_HW[seq(36*2+4, 36*2+4+8),seq(3)]
+
+plot_estimates(real=S,estimates=s_HW,ylim=c(0.65,1), xlim=c(0.75, length(S)+0.25), name="s")
 
 
