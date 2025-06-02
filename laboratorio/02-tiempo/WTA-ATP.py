@@ -70,8 +70,8 @@ import matplotlib.pyplot as plt; cmap = plt.get_cmap("tab10")
 
 # Figura
 #
-habilidades = habilidades_atp
-ranking = ranking_atp
+habilidades = habilidades_wta
+ranking = ranking_wta
 
 for i in range(10):
     jugadora = ranking[i][0]
