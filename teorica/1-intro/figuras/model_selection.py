@@ -153,16 +153,16 @@ maxApriori = []
 def fit(alpha):
     for d in range(10):#d=2
         for i in range(N) :#i=2
-X_priori = X[:i]
-t_priori = t[:i]
-x_posterior = X[i]
-t_posteriori = t[i]
-# Design matrix of training observations
-Phi_priori =  polynomial_basis_function(X_priori, np.array(range(d+1)) )
-Phi_posteriori = polynomial_basis_function(x_posterior , np.array(range(d+1)))
-Phi_posteriori = Phi_posteriori.reshape((1,d+1))
+            X_priori = X[:i]
+            t_priori = t[:i]
+            x_posterior = X[i]
+            t_posteriori = t[i]
+            # Design matrix of training observations
+            Phi_priori =  polynomial_basis_function(X_priori, np.array(range(d+1)) )
+            Phi_posteriori = polynomial_basis_function(x_posterior , np.array(range(d+1)))
+            Phi_posteriori = Phi_posteriori.reshape((1,d+1))
 
-prior_predictive_online[d,0] += np.log(predictive(t_posteriori, Phi_posteriori, beta, alpha, t_priori, Phi_priori ))
+            prior_predictive_online[d,0] += np.log(predictive(t_posteriori, Phi_posteriori, beta, alpha, t_priori, Phi_priori ))
             
             ## Otros indicadores.
             w_map_prior = posterior(alpha, beta, t_priori, Phi_priori)[0]
